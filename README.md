@@ -66,3 +66,29 @@ Manual analysis of 20 random instances:
 - 4 out of 7 bad instances had different domains, 1 out 13 good instances had different domains --> based on this, we discarded instances from different domains
 - lowest bicleaner score of good instances was 0.81, bad instances had average scores between 0.73 and 0.88.
 - for 4 out of 7 instances there was a huge difference in length of Slovene and English text (205 vs. 55, 139 vs. 3, 625 vs. 55 etc.)
+
+### Analysis of a sample of 100 texts
+
+I detected some issues that need to be addressed:
+- many English texts have duplicated sentences (234244, 1001538, 834122, 574769, 779376, 220580 etc.)- should I duplicate English sentences before joining them into texts? Slovene sentences do not seem to be duplicated - maybe this is a problem with different alignment of sentences and one English sentence is aligned with multiple Slovene sentences and therefore appears multiple times. I am afraid that I will loose some structure of Slovene texts if I remove all duplicated English sentences - however, if we are interested only in English texts, that does not matter. 
+- 13% of texts are non-textual (1887229, 798879, 477792 etc.) - should we apply some heuristics to try to discard them beforehand?
+
+The following results were calculated after removing 13% of texts that were revealed to be non-textual.
+
+**Results**
+
+Macro f1: 0.663, Micro f1: 0.908
+
+Confusion matrix:
+
+![](Applying-GENRE-on-MaCoCu-bilingual/figures/Confusion-matrix-predicted-sample.png)
+
+Based on the confusion matrix we can see that the macro F1 is so low solely due to very infrequent categories being miss-classified (Other) and the fact that there is no instance, belonging to Forum. Micro F1 is very high, on the other hand.
+
+Classification report:
+
+![](Applying-GENRE-on-MaCoCu-bilingual/figures/Classification-report-prediction-on-sample.png)
+
+Other notes:
+- there are some obvious machine translation (1353811, 1844711 - oblacila.si)
+- some English texts do not correspond to Slovene texts (1481642, 183369, 1944325)
