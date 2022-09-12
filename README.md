@@ -17,7 +17,7 @@ Initial no. of sentences: 3,176,311, initial no. of documents: 281,475, final no
 
 Initial length of English texts:
 
-<img style="width:100%" src="figures/Initial-English-length.png">
+![](figures/Initial-English-length.png)
 
 ### Statistics for Macocu-sl-en after pre-processing
 
@@ -81,13 +81,13 @@ Macro f1: 0.663, Micro f1: 0.908
 
 Confusion matrix:
 
-<img style="width:100%" src="Applying-GENRE-on-MaCoCu-bilingual/figures/Confusion-matrix-predicted-sample.png">
+![](figures/Confusion-matrix-predicted-sample.png)
 
 Based on the confusion matrix we can see that the macro F1 is so low solely due to very infrequent categories being miss-classified (Other) and the fact that there is no instance, belonging to Forum. Micro F1 is very high, on the other hand.
 
 Classification report:
 
-<img style="width:100%" src="Applying-GENRE-on-MaCoCu-bilingual/figures/Classification-report-prediction-on-sample.png">
+![](figures/Classification-report-prediction-on-sample.png)
 
 Other notes:
 - there are some obvious machine translation (1353811, 1844711 - oblacila.si)
