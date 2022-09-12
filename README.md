@@ -90,5 +90,5 @@ Classification report:
 ![](figures/Classification-report-prediction-on-sample.png)
 
 Other notes:
-- there are some obvious machine translation (1353811, 1844711 - oblacila.si)
+- there are some obvious machine translations (1353811, 1844711 - oblacila.si)
 - some English texts do not correspond to Slovene texts (1481642, 183369, 1944325)
