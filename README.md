@@ -10,19 +10,20 @@ Steps:
 - merged all sentences into English and Slovene documents (based on the English source (web page URL) and Slovene source (URL) each)
 - converted the dataframe where each sentence is one row into a dataframe where each document is one row (by discarding duplicated English documents)
 - discarded documents that have less than the median no. of words (English length) - less than 75 --> we are left with 103,281 texts
-- saved the document format to CSV
+- discarded documents that have punctuation per no. of words ratio less than 0.015 or more than 0.2 (non-textual documents) - discarded 1474 texts (see notebook *2.1-Filtering-non-textual.ipynb*)
+- saved the document format to CSV: Macocu-sl-en-doc-format-filtered.csv
 
 Analysis showed that all sentences from the original TMX file have bicleaner score higher than 0.50 - bad sentences must have been cleaned out before.
 
-Initial no. of sentences: 3,176,311; final no. of texts: 103,281
+Initial no. of sentences: 3,176,311; final no. of texts: 101,807	
 
 Initial length of English texts, without deduplicaton of English sentences (before removal of domains that do not match):
 
 ![](figures/Initial-English-length.png)
 
-Initial length of English texts after deduplication and removal of domains that do not match:
+Initial length of English texts after deduplication and removal of domains that do not match and non-textual texts (based on punct. ratio):
 
-![](figures/Initial-length-before-filtering-after-deduplication.png)
+![](figures/Initial-length-after-filtering.png)
 
 After deduplication, texts are slightly shorter. The biggest difference is with the longer texts.
 
@@ -32,41 +33,41 @@ English variants (document level)
 
 |     |   en_var_doc |
 |:----|-------------:|
-| B   |    0.41818   |
-| UNK |    0.355303  |
-| A   |    0.165703  |
-| MIX |    0.0608147 |
+| B   |    0.421287  |
+| UNK |    0.351813  |
+| A   |    0.165755  |
+| MIX |    0.0611451 |
 
 English variants (domain level)
 
 |     |   en_var_dom |
 |:----|-------------:|
-| B   |    0.563918  |
-| MIX |    0.282075  |
-| A   |    0.144092  |
-| UNK |    0.0099147 |
+| B   |   0.567122   |
+| MIX |   0.281886   |
+| A   |   0.140992   |
+| UNK |   0.00999931 |
 
 Translation direction
 
 |         |   translation_direction |
 |:--------|------------------------:|
-| sl-orig |                0.889166 |
-| en-orig |                0.110834 |
+| sl-orig |                  0.8893 |
+| en-orig |                  0.1107 |
 
 Average bi-cleaner score on document level
 
 |       |   average_score |
 |:------|----------------:|
-| count |  103281         |
-| mean  |       0.896688  |
-| std   |       0.0644189 |
+| count |  101807         |
+| mean  |       0.897452  |
+| std   |       0.0634431 |
 | min   |       0.502     |
-| 25%   |       0.867333  |
-| 50%   |       0.9132    |
-| 75%   |       0.942571  |
+| 25%   |       0.868429  |
+| 50%   |       0.913667  |
+| 75%   |       0.942684  |
 | max   |       0.9905    |
 
-As we can see, almost all of the documents were originally written in Slovene (89%). Most of them are identified as British (42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (56%) were identified to be British. Most of the texts have quality higher than 0.90 based on the bicleaner score.
+As we can see, almost all of the documents were originally written in Slovene (89%). Most of them are identified as British (42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (57%) were identified to be British. Most of the texts have quality higher than 0.90 based on the bicleaner score.
 
 Manual analysis of 20 random instances:
 - 13 were okay, 7 not okay
@@ -78,7 +79,7 @@ Manual analysis of 20 random instances:
 
 I detected some issues that need to be addressed:
 - many English texts have duplicated sentences (234244, 1001538, 834122, 574769, 779376, 220580 etc.) --> we discarded duplicated sentences with the same ID which removed 8 out of 13 "non-textual" texts
-- 13% of texts are non-textual (1887229, 798879, 477792 etc.) - should we apply some heuristics to try to discard them beforehand?
+- 13% of texts are non-textual (1887229, 798879, 477792 etc.) --> discarded texts based on the ratio of punctuation per words -> this discarded 2 of the remaining 5 "non-textual" texts
 
 The following results were calculated after removing 13% of texts that were revealed to be non-textual.
 

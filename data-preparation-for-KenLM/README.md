@@ -29,3 +29,16 @@ KenLM scores for "suitable" texts:
 | 50%   |      -682.453 |
 | 75%   |      -461.512 |
 | max   |      -283.303 |
+
+KenLM on the whole MaCoCu-en corpus after filtering:
+
+|       |   KenLM-score |
+|:------|--------------:|
+| count |    101807     |
+| mean  |     -1367.4   |
+| std   |      5024.17  |
+| min   |   -284524     |
+| 25%   |     -1141.7   |
+| 50%   |      -643.6   |
+| 75%   |      -406.853 |
+| max   |      -131.865 |

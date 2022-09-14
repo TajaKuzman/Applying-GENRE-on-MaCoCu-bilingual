@@ -4,3 +4,6 @@ Macocu-sl-en-doc-format.csv
 /artifacts
 /wandb
 data-preparation-for-KenLM/English-data-for-KenLM.txt
+Macocu-sl-en-doc-format-filtered.csv
+sample-corpus-filtered-predicted.csv
+sample-corpus-filtered-predicted-test.csv
