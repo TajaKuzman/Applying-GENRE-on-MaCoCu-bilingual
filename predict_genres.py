@@ -68,7 +68,7 @@ def predict(dataframe, file_path):
     for i in batches_list:
         batches_list_new.append(list(i))
 
-    print(f"The dataset is split into {len(batches_list_new)} batches of {len(batches_list_new[0])} texts.")
+    print("The dataset is split into {} batches of {} texts.".format(len(batches_list_new),len(batches_list_new[0])))
 
     # Apply softmax to the raw outputs
     def softmax(x):
@@ -99,7 +99,7 @@ def predict(dataframe, file_path):
             y_distr.append(i)
         
         batch_counter += 1
-        print(f"Batch {batch_counter} predicted.")
+        print("Batch {} predicted.".format(batch_counter))
         
         json_backup = [batch_counter,y_pred, y_distr]
 
@@ -109,14 +109,18 @@ def predict(dataframe, file_path):
 
     prediction_time = round((time.time() - start_time)/60,2)
 
-    print(f"Prediction completed. It took {prediction_time} minutes for {dataframe.shape[0]} instances - {prediction_time/dataframe.shape[0]} minutes per one instance.")
+    print("Prediction completed. It took {} minutes for {} instances - {} minutes per one instance.".format(prediction_time, dataframe.shape[0], prediction_time/dataframe.shape[0]))
     
     dataframe["X-GENRE"] = y_pred
     dataframe["label_distribution"] = y_distr
 
     # Save the new dataframe which contains the y_pred values as well
-    dataframe.to_csv(f"{file_path}", sep="\t")
+    dataframe.to_csv("{}".format(file_path), sep="\t")
 
     return dataframe
+
+# Try prediction on a sample
+sample = corpus_df.sample(n=30)
+predict(sample, "sample-prediction-test.csv")
 
 predict(corpus_df, "Macocu-sl-en-predicted.csv") 

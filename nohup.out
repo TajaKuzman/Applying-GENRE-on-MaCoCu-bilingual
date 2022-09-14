@@ -1,0 +1,85 @@
+  File "predict_genres.py", line 71
+    print(f"The dataset is split into {len(batches_list_new)} batches of {len(batches_list_new[0])} texts.")
+                                                                                                          ^
+SyntaxError: invalid syntax
+  File "predict_genres.py", line 71
+    print(f"The dataset is split into {len(batches_list_new)} batches of {len(batches_list_new[0])} texts.")
+                                                                                                          ^
+SyntaxError: invalid syntax
+  File "predict_genres.py", line 102
+    print(f"Batch {batch_counter} predicted.")
+                                            ^
+SyntaxError: invalid syntax
+  File "predict_genres.py", line 112
+    print(f"Prediction completed. It took {prediction_time} minutes for {dataframe.shape[0]} instances - {prediction_time/dataframe.shape[0]} minutes per one instance.")
+                                                                                                                                                                       ^
+SyntaxError: invalid syntax
+  File "predict_genres.py", line 118
+    dataframe.to_csv(f"{file_path}", sep="\t")
+                                  ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "predict_genres.py", line 3, in <module>
+    import numpy as np
+ImportError: No module named numpy
+/home/tajak/anaconda3/lib/python3.9/site-packages/simpletransformers/classification/classification_model.py:459: UserWarning: use_multiprocessing automatically disabled as xlmroberta fails when using multiprocessing for feature conversion.
+  warnings.warn(
+The dataset is split into 4 batches of 8 texts.
+Prediction started.
+Batch 1 predicted.
+Batch 2 predicted.
+Batch 3 predicted.
+Batch 4 predicted.
+Prediction completed. It took 0.11 minutes for 30 instances - 0.0036666666666666666 minutes per one instance.
+The dataset is split into 12726 batches of 8 texts.
+Prediction started.
+Batch 1 predicted.
+Batch 2 predicted.
+Batch 3 predicted.
+Batch 4 predicted.
+Batch 5 predicted.
+Batch 6 predicted.
+Batch 7 predicted.
+Batch 8 predicted.
+Batch 9 predicted.
+Batch 10 predicted.
+Batch 11 predicted.
+Batch 12 predicted.
+Batch 13 predicted.
+Batch 14 predicted.
+Batch 15 predicted.
+Batch 16 predicted.
+Batch 17 predicted.
+Batch 18 predicted.
+Batch 19 predicted.
+Batch 20 predicted.
+Batch 21 predicted.
+Batch 22 predicted.
+Batch 23 predicted.
+Batch 24 predicted.
+Batch 25 predicted.
+Batch 26 predicted.
+Batch 27 predicted.
+Batch 28 predicted.
+Batch 29 predicted.
+Batch 30 predicted.
+Batch 31 predicted.
+Batch 32 predicted.
+Batch 33 predicted.
+Batch 34 predicted.
+Batch 35 predicted.
+Batch 36 predicted.
+Batch 37 predicted.
+Batch 38 predicted.
+Batch 39 predicted.
+Batch 40 predicted.
+Batch 41 predicted.
+Batch 42 predicted.
+Batch 43 predicted.
+Batch 44 predicted.
+Batch 45 predicted.
+Batch 46 predicted.
+Batch 47 predicted.
+Batch 48 predicted.
+Batch 49 predicted.
+Batch 50 predicted.
