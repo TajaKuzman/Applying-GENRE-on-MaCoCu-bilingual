@@ -4,3 +4,4 @@ Macocu-sl-en-doc-format.csv
 /artifacts
 /wandb
 data-preparation-for-KenLM/English-data-for-KenLM.txt
+Macocu-sl-en-doc-format-filtered.csv
