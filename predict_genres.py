@@ -123,4 +123,4 @@ def predict(dataframe, file_path):
 sample = corpus_df.sample(n=30)
 predict(sample, "sample-prediction-test.csv")
 
-predict(corpus_df, "Macocu-sl-en-predicted.csv") 
+predict(corpus_df, "Macocu-sl-en-predicted.csv")
