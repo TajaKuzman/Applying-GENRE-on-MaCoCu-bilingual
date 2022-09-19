@@ -100,3 +100,64 @@ Classification report:
 Other notes:
 - there are some obvious machine translations (1353811, 1844711 - oblacila.si)
 - some English texts do not correspond to Slovene texts (1481642, 183369, 1944325)
+
+### Prediction of genres to the entire MaCoCu-sl-en corpus
+
+By predicting on batches of 8 instances, the prediction was much faster - 4 hours for around 100k texts (without using batches, it would be 14 days).
+
+General statistics:
+
+|                         |   X-GENRE distribution (count) |
+|:------------------------|----------:|
+| Information/Explanation |     32368 |
+| Promotion               |     31384 |
+| News                    |     13605 |
+| Instruction             |     10846 |
+| Legal                   |      5866 |
+| Opinion/Argumentation   |      4863 |
+| Other                   |      2194 |
+| Forum                   |       405 |
+| Prose/Lyrical           |       276 |
+
+|                         |    X-GENRE distribution (percentages) |
+|:------------------------|-----------:|
+| Information/Explanation | 0.317935   |
+| Promotion               | 0.30827    |
+| News                    | 0.133635   |
+| Instruction             | 0.106535   |
+| Legal                   | 0.0576188  |
+| Opinion/Argumentation   | 0.0477669  |
+| Other                   | 0.0215506  |
+| Forum                   | 0.00397812 |
+| Prose/Lyrical           | 0.00271101 |
+
+The certainty of prediction (softmax scores of the raw output):
+
+|       |   certainty |
+|:------|---------------------:|
+| mean  |             0.970066 |
+| std   |             0.089027 |
+| min   |             0.247184 |
+| 25%   |             0.995622 |
+| 50%   |             0.998666 |
+| 75%   |             0.998966 |
+| max   |             0.999145 |
+
+Distribution of English varieties in genres (doc level):
+
+Distribution in entire corpus:
+
+English variants (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.421287  |
+| UNK |    0.351813  |
+| A   |    0.165755  |
+| MIX |    0.0611451 |
+
+More British than in general distribution: News (0.55), Legal (0.68)
+
+More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.23)
+
+More Unknown than in general distribution: Forum (0.51)
