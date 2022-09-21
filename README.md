@@ -9,7 +9,7 @@ This consisted of the following steps:
 1. [Preparation of data](#preparation-of-the-data): converted TMX file to CSV, discarded sentences where English and text in other language come from different domain, discarded duplicated English sentences, merged sentences into documents based on source URL.
 2. Pre-processing: discarded all documents, shorter than the median length; discarded non-textual documents based on a no. of punctuations per no. of words heuristic
 3. Applying the X-GENRE classifier to the data (see [results](#prediction-of-genres-to-the-entire-macocu-sl-en-corpus) for MaCoCu-sl-en and [manual analysis of the results](#analysis-of-a-sample-of-150-texts-second-round---pre-processed-corpus))
-4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with certainty lower than 0.9
+4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with confidence lower than 0.9
 5. Analysis of results, also in regards to varieties of English language
 
 
@@ -162,6 +162,8 @@ The certainty of prediction (softmax scores of the raw output):
 | 75%   |                0.998966 |
 | max   |                0.999145 |
 
+<!--
+
 Distribution of English varieties in genres (doc level):
 
 Distribution in entire corpus:
@@ -182,6 +184,8 @@ More British than in general distribution: News (0.55), Legal (0.68)
 More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.23)
 
 More Unknown than in general distribution: Forum (0.51)
+
+-->
 
 ### Analysis of a sample of 150 texts (second round - pre-processed corpus)
 
@@ -245,3 +249,66 @@ Results on the stratified sample:
 ![](figures/Confusion-matrix-predicted-sample-cleaned-stratified-92-instances-second-round.png)
 
 ## Analysis of predictions on entire MaCoCu-sl-en corpus after post-processing
+
+Post-processing discarded predictions of 10,348 texts (10%).
+
+Final distribution of labels:
+
+|                         |   final-X-GENRE (count) |
+|:------------------------|----------------:|
+| Information/Explanation |           30307 |
+| Promotion               |           29629 |
+| News                    |           12207 |
+| Instruction             |            9801 |
+| Legal                   |            5317 |
+| Opinion/Argumentation   |            3980 |
+| Prose/Lyrical           |             218 |
+
+|                         |   final-X-GENRE (percentages) |
+|:------------------------|----------------:|
+| Information/Explanation |      0.331373   |
+| Promotion               |      0.323959   |
+| News                    |      0.13347    |
+| Instruction             |      0.107163   |
+| Legal                   |      0.0581353  |
+| Opinion/Argumentation   |      0.0435168  |
+| Prose/Lyrical           |      0.00238358 |
+
+### Distribution of English varieties in genres (doc level)
+
+Distribution in entire corpus (document level):
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.421287  |
+| UNK |    0.351813  |
+| A   |    0.165755  |
+| MIX |    0.0611451 |
+
+Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation, Other
+
+More British than in general distribution: News (0.55), Legal (0.69)
+
+More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.25)
+
+More Unknown than in general distribution: Instruction (0.49)
+
+### Length of texts per genre
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| mean  |     428.811 |
+| std   |    1694.06  |
+| min   |      75     |
+| 25%   |     119     |
+| 50%   |     190     |
+| 75%   |     346     |
+| max   |   98761     |
+
+Generally slightly shorter: Information/Explanation (median 179, mean 334, Promotion (median 159, mean 229), Prose/Lyrical (median 155, mean 777)
+
+Generally slightly longer: Opinion/Argumentation, News (median 230, mean 429-459), Instruction (median 226, mean 357)
+
+Generally much longer: Legal (median 429, mean 2164)
