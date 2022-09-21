@@ -1,5 +1,18 @@
 # Applying-GENRE-on-MaCoCu-bilingual
- 
+
+Summary:
+
+I applied the genre classifier, developed in previous experiments (see https://github.com/TajaKuzman/Genre-Datasets-Comparison, especially "Data" and "The distribution of X-GENRE labels in the joined dataset (X-GENRE dataset)" under [Joint schema](https://github.com/TajaKuzman/Genre-Datasets-Comparison#joint-schema-x-genre), and [X-GENRE classifier](https://github.com/TajaKuzman/Genre-Datasets-Comparison#x-genre-classifier)) to the English documents extracted from MaCoCu bilingual corpora.
+
+This consisted of the following steps:
+
+1. [Preparation of data](#preparation-of-the-data): converted TMX file to CSV, discarded sentences where English and text in other language come from different domain, discarded duplicated English sentences, merged sentences into documents based on source URL.
+2. Pre-processing: discarded all documents, shorter than the median length; discarded non-textual documents based on a no. of punctuations per no. of words heuristic
+3. Applying the X-GENRE classifier to the data (see [results](#prediction-of-genres-to-the-entire-macocu-sl-en-corpus) for MaCoCu-sl-en and [manual analysis of the results](#analysis-of-a-sample-of-150-texts-second-round---pre-processed-corpus))
+4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with certainty lower than 0.9
+5. Analysis of results, also in regards to varieties of English language
+
+
 ## Preparation of the data
 
 Steps:
@@ -69,11 +82,15 @@ Average bi-cleaner score on document level
 
 As we can see, almost all of the documents were originally written in Slovene (89%). Most of them are identified as British (42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (57%) were identified to be British. Most of the texts have quality higher than 0.90 based on the bicleaner score.
 
+<!--
+
 Manual analysis of 20 random instances:
 - 13 were okay, 7 not okay
-- 4 out of 7 bad instances had different domains, 1 out 13 good instances had different domains --> based on this, we discarded instances from different domains
+- 4 out of 7 bad instances had different domains, 1 out 13 good instances had different domains > based on this, we discarded instances from different domains
 - lowest bicleaner score of good instances was 0.81, bad instances had average scores between 0.73 and 0.88.
 - for 4 out of 7 instances there was a huge difference in length of Slovene and English text (205 vs. 55, 139 vs. 3, 625 vs. 55 etc.)
+
+-->
 
 ### Analysis of a sample of 100 texts - first round
 
@@ -81,29 +98,31 @@ I detected some issues that need to be addressed:
 - many English texts have duplicated sentences (234244, 1001538, 834122, 574769, 779376, 220580 etc.) --> we discarded duplicated sentences with the same ID which removed 8 out of 13 "non-textual" texts
 - 13% of texts are non-textual (1887229, 798879, 477792 etc.) --> discarded texts based on the ratio of punctuation per words -> this discarded 2 of the remaining 5 "non-textual" texts
 
-The following results were calculated after removing 13% of texts that were revealed to be non-textual.
+The following results were calculated after removing 13% of texts that were revealed to be non-textual: Macro f1: 0.663, Micro f1: 0.908
 
-**Results**
-
-Macro f1: 0.663, Micro f1: 0.908
+<!-- 
 
 Confusion matrix:
 
 ![](figures/Confusion-matrix-predicted-sample.png)
 
-Based on the confusion matrix we can see that the macro F1 is so low solely due to very infrequent categories being miss-classified (Other) and the fact that there is no instance, belonging to Forum. Micro F1 is very high, on the other hand.
+ -->
 
+Macro F1 is so low solely due to very infrequent categories being miss-classified (Other) and the fact that there is no instance, belonging to Forum. Micro F1 is very high, on the other hand.
+
+<!--
 Classification report:
 
 ![](figures/Classification-report-prediction-on-sample.png)
+-->
 
 Other notes:
 - there are some obvious machine translations (1353811, 1844711 - oblacila.si)
 - some English texts do not correspond to Slovene texts (1481642, 183369, 1944325)
 
-### Prediction of genres to the entire MaCoCu-sl-en corpus
+## Prediction of genres to the entire MaCoCu-sl-en corpus
 
-By predicting on batches of 8 instances, the prediction was much faster - 4 hours for around 100k texts (without using batches, it would be 14 days). I repeated the prediction to add the dictionary of labels and their distributions which took more time - around 6 hours.
+By predicting on batches of 8 instances, the prediction was much faster - 6 hours for around 100k texts (without using batches, it would be 14 days).
 
 General statistics:
 
@@ -118,8 +137,6 @@ General statistics:
 | Other                   |      2194 |
 | Forum                   |       405 |
 | Prose/Lyrical           |       276 |
-
-In both rounds, the number of predicted texts per category was excatly the same.
 
 |                         |    X-GENRE (percentages)|
 |:------------------------|-----------:|
@@ -186,7 +203,7 @@ The distribution of predicted labels in the sample:
 
 I found 2 "Non-textual" instances in the sample. They were removed from the following analysis.
 
-Macro f1: 0.683, Micro f1: 0.765
+Macro F1: 0.713, Micro F1: 0.777
 
 Confusion matrix:
 
@@ -194,4 +211,37 @@ Confusion matrix:
 
 Classification report:
 
-![](figures/Classification-report-manual-analysis-second-round.png)
+![](figures/Classification-report-manual-analysis-on-150-instances.png)
+
+What I learnt from the analysis:
+- "Other" is assigned to texts about which the classifier is not certain about (which is how this category is intended to work) --> we can discard predictions for these texts (2.2k texts - 0.2% of all texts).
+- There are still some "Non-textual" instances (2 - 0.17% of all instances), but they fall under Information/Explanation which technically is not horribly wrong.
+- the most frequent categories (Information/Explanation, Promotion, News, Instruction, Legal) have a high precision - 0.73-0.97
+- Prose/Lyrical is identified suprisingly well despite being less frequent category in the training dataset (F1 score 0.95)
+- Forum was not identified well, but this is mostly due to the fact that there were no nice instances of forum in the sample.
+
+If the analysis would be performed on a stratified sample (following the distribution of labels in the entire corpus), the micro and macro F1 scores are even better: Macro f1: 0.71, Micro f1: 0.867.
+
+To get more reliable predictions, I suggest:
+- discarding predicted labels of all texts, labelled as "Other"
+- discarding predicted labels of all texts with the certainty of prediction lower than 0.9 ("chosen_category_distribution") - (after discarding Other,) we discarded 25% of incorrectly predicted labels with this method while losing 5% of correctly predicted labels.
+- discarding predicted labels of all texts, labelled as "Forum" since most were incorrect (due to this category not being present in the data)
+
+Results of manual analysis after proposed post-processing:
+
+- if we discard "Other" and predictions with certainty under 0.9, 26 instances are without a label (17%): Macro f1: 0.827, Micro f1: 0.871;
+- if we also discard "Forum", in total, 35 instances are without a label (23%): Macro f1: 0.92, Micro f1: 0.922; on a balanced sample (stratified based on labels): Macro f1: 0.87-0.90, Micro f1: 0.91-0.92 (scores could be also a bit smaller - depends on which instances of Opinion and Legal are sampled out)
+
+Results after discarding "Other", "Forum" and predictions with certainty under 0.9 (on the entire sample - not stratified):
+
+![](figures/Confusion-matrix-predicted-sample-cleaned-115-instances-second-round.png)
+
+Classification report:
+
+![](figures/Classification-report-manual-analysis-on-cleaned-sample-115-instances.png)
+
+Results on the stratified sample:
+
+![](figures/Confusion-matrix-predicted-sample-cleaned-stratified-92-instances-second-round.png)
+
+## Analysis of predictions on entire MaCoCu-sl-en corpus after post-processing
