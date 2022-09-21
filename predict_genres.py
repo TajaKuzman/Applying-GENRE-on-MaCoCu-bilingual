@@ -53,6 +53,9 @@ def predict(dataframe, file_path):
     - dataframe (pandas DataFrame)
     - file_path: the path to the new CSV file with predictions
     """
+    # Define the label list
+    labels = ["Other", "Information/Explanation", "News", "Instruction", "Opinion/Argumentation", "Forum", "Prose/Lyrical", "Legal", "Promotion"]
+    
     # Split the dataframe into batches
     # Create batches of text
     from itertools import islice
@@ -77,6 +80,7 @@ def predict(dataframe, file_path):
 
     y_pred = []
     y_distr = []
+    most_probable = []
     batch_counter = 0
 
     print("Prediction started.")
@@ -87,10 +91,14 @@ def predict(dataframe, file_path):
         current_y_pred = output[0]
         current_y_distr = output[1]
         current_y_distr_softmax = []
+        current_y_distr_most_probable = []
         for i in current_y_distr:
             distr = softmax(i)
+            distr_dict = {labels[i]: round(distr[i],4) for i in range(len(labels))}
+            current_y_distr_softmax.append(distr_dict)
+            # Also add the information for the softmax of the most probable category ("certainty")
             distr_sorted = np.sort(distr)
-            current_y_distr_softmax.append(distr_sorted[-1])
+            current_y_distr_most_probable.append(distr_sorted[-1])
 
         for i in current_y_pred:
             y_pred.append(i)
@@ -98,10 +106,13 @@ def predict(dataframe, file_path):
         for i in current_y_distr_softmax:
             y_distr.append(i)
         
+        for i in current_y_distr_most_probable:
+            most_probable.append(i)
+        
         batch_counter += 1
         print("Batch {} predicted.".format(batch_counter))
         
-        json_backup = [batch_counter,y_pred, y_distr]
+        json_backup = [batch_counter,y_pred, y_distr, most_probable]
 
         # Save y_pred and y_distr just in case
         with open("batch-backup-predictions.json","w") as backup:
@@ -113,11 +124,13 @@ def predict(dataframe, file_path):
     
     dataframe["X-GENRE"] = y_pred
     dataframe["label_distribution"] = y_distr
+    dataframe["chosen_category_distr"] = most_probable
 
     # Save the new dataframe which contains the y_pred values as well
     dataframe.to_csv("{}".format(file_path), sep="\t")
 
     return dataframe
+
 
 # Try prediction on a sample
 sample = corpus_df.sample(n=30)

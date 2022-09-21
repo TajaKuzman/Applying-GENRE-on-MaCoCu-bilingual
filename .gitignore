@@ -11,3 +11,5 @@ batch-backup-predictions.json
 nohup.out
 Macocu-sl-en-predicted.csv
 batch-backup-predictions.json
+Macocu-is-en.json
+MaCoCu-is-en.tmx

@@ -15,7 +15,7 @@ Steps:
 
 Analysis showed that all sentences from the original TMX file have bicleaner score higher than 0.50 - bad sentences must have been cleaned out before.
 
-Initial no. of sentences: 3,176,311; final no. of texts: 101,807	
+Initial no. of texts: 285,892 (no. of sentences: 3,176,311); final no. of texts: 101,807	
 
 Initial length of English texts, without deduplicaton of English sentences (before removal of domains that do not match):
 
@@ -75,7 +75,7 @@ Manual analysis of 20 random instances:
 - lowest bicleaner score of good instances was 0.81, bad instances had average scores between 0.73 and 0.88.
 - for 4 out of 7 instances there was a huge difference in length of Slovene and English text (205 vs. 55, 139 vs. 3, 625 vs. 55 etc.)
 
-### Analysis of a sample of 100 texts
+### Analysis of a sample of 100 texts - first round
 
 I detected some issues that need to be addressed:
 - many English texts have duplicated sentences (234244, 1001538, 834122, 574769, 779376, 220580 etc.) --> we discarded duplicated sentences with the same ID which removed 8 out of 13 "non-textual" texts
@@ -103,11 +103,11 @@ Other notes:
 
 ### Prediction of genres to the entire MaCoCu-sl-en corpus
 
-By predicting on batches of 8 instances, the prediction was much faster - 4 hours for around 100k texts (without using batches, it would be 14 days).
+By predicting on batches of 8 instances, the prediction was much faster - 4 hours for around 100k texts (without using batches, it would be 14 days). I repeated the prediction to add the dictionary of labels and their distributions which took more time - around 6 hours.
 
 General statistics:
 
-|                         |   X-GENRE distribution (count) |
+|                         |   X-GENRE (count)|
 |:------------------------|----------:|
 | Information/Explanation |     32368 |
 | Promotion               |     31384 |
@@ -119,7 +119,9 @@ General statistics:
 | Forum                   |       405 |
 | Prose/Lyrical           |       276 |
 
-|                         |    X-GENRE distribution (percentages) |
+In both rounds, the number of predicted texts per category was excatly the same.
+
+|                         |    X-GENRE (percentages)|
 |:------------------------|-----------:|
 | Information/Explanation | 0.317935   |
 | Promotion               | 0.30827    |
@@ -133,15 +135,15 @@ General statistics:
 
 The certainty of prediction (softmax scores of the raw output):
 
-|       |   certainty |
-|:------|---------------------:|
-| mean  |             0.970066 |
-| std   |             0.089027 |
-| min   |             0.247184 |
-| 25%   |             0.995622 |
-| 50%   |             0.998666 |
-| 75%   |             0.998966 |
-| max   |             0.999145 |
+|       |   chosen_category_distr |
+|:------|------------------------:|
+| mean  |                0.970066 |
+| std   |                0.089027 |
+| min   |                0.247184 |
+| 25%   |                0.995622 |
+| 50%   |                0.998666 |
+| 75%   |                0.998966 |
+| max   |                0.999145 |
 
 Distribution of English varieties in genres (doc level):
 
@@ -156,8 +158,40 @@ English variants (document level)
 | A   |    0.165755  |
 | MIX |    0.0611451 |
 
+Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation, Other
+
 More British than in general distribution: News (0.55), Legal (0.68)
 
 More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.23)
 
 More Unknown than in general distribution: Forum (0.51)
+
+### Analysis of a sample of 150 texts (second round - pre-processed corpus)
+
+I created a sample from the pre-processed MaCoCu-sl-en to which we applied the classifier by spliting the corpus with sci-kit learn, stratifying based on the predicted label distribution. To be able to analyse the performance on less frequent categories as well, I added 10 instances of each of categories that previously had less than 10 instances in the sample corpus ('Opinion/Argumentation', 'Legal',  'Other', 'Prose/Lyrical', 'Forum'). Then I discarded any duplicates (there were none) and shuffled the texts. Then I performed manual annotation where I confirmed that the label is correctly predicted in any case where this could be the label.
+
+The distribution of predicted labels in the sample:
+
+|                         |   X-GENRE |
+|:------------------------|----------:|
+| Information/Explanation |        32 |
+| Promotion               |        31 |
+| Legal                   |        16 |
+| Opinion/Argumentation   |        15 |
+| News                    |        13 |
+| Other                   |        12 |
+| Instruction             |        11 |
+| Forum                   |        10 |
+| Prose/Lyrical           |        10 |
+
+I found 2 "Non-textual" instances in the sample. They were removed from the following analysis.
+
+Macro f1: 0.683, Micro f1: 0.765
+
+Confusion matrix:
+
+![](figures/Confusion-matrix-predicted-sample-150-instances-second-round.png)
+
+Classification report:
+
+![](figures/Classification-report-manual-analysis-second-round.png)
