@@ -285,7 +285,7 @@ Distribution in entire corpus (document level):
 | A   |    0.165755  |
 | MIX |    0.0611451 |
 
-Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation, Other
+Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation
 
 More British than in general distribution: News (0.55), Legal (0.69)
 
