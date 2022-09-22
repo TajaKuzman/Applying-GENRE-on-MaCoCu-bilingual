@@ -312,3 +312,181 @@ Generally slightly shorter: Information/Explanation (median 179, mean 334, Promo
 Generally slightly longer: Opinion/Argumentation, News (median 230, mean 429-459), Instruction (median 226, mean 357)
 
 Generally much longer: Legal (median 429, mean 2164)
+
+## MaCoCu-is-en
+
+Initial number of segments (English sentences): 355,100, initial number of texts: 40,340.
+
+Pre-processing:
+- discarded sentences where source and target are from different domains (97,943 sentences and 13,691 texts discarded)
+- discarded duplicated English sentences (with the same par id and text - 14,169 sentences and 346 texts discarded)
+- discarded duplicated English texts: 26,218 texts remaining
+
+Initial length of remaining texts:
+
+|       |   en_length |
+|:------|------------:|
+| count |   26218     |
+| mean  |     190.974 |
+| std   |     389.449 |
+| min   |       1     |
+| 25%   |      30     |
+| 50%   |      79     |
+| 75%   |     203     |
+| max   |   11125     |
+
+- all texts with length, lower than the median (79 words) were discarded --> 13,174 texts remaining
+
+### Statistics for MaCoCu-is-en after pre-processing
+
+English variant (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.391908  |
+| UNK |    0.371186  |
+| A   |    0.178306  |
+| MIX |    0.0586003 |
+
+English variant (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| B   |    0.5879    |
+| MIX |    0.26317   |
+| A   |    0.134735  |
+| UNK |    0.0141946 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| is-orig |                0.770609 |
+| en-orig |                0.229391 |
+
+
+Average bicleaner score
+
+|       |   average_score |
+|:------|----------------:|
+| count |   13174         |
+| mean  |       0.865217  |
+| std   |       0.0589788 |
+| min   |       0.512     |
+| 25%   |       0.836195  |
+| 50%   |       0.875971  |
+| 75%   |       0.905872  |
+| max   |       0.9735    |
+
+Length of English text
+
+|       |   en_length |
+|:------|------------:|
+| count |   13174     |
+| mean  |     346.647 |
+| std   |     502.707 |
+| min   |      79     |
+| 25%   |     124     |
+| 50%   |     201     |
+| 75%   |     380     |
+| max   |   11125     |
+
+As we can see, almost all of the documents were originally written in Icelandic (77%), but less than in MaCoCu-sl-en (Slovene: 89%). Most of them are identified as British (39%; in MaCoCu-sl-en: 42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (59%; in MaCoCu-sl-en: 57%) were identified to be British. Most of the texts have quality higher than 0.88 based on the bicleaner score (in MaCoCu-sl-en the score is higher - median is 0.90).
+
+### Results of genre prediction on MaCoCu-is-en
+
+Distribution of labels:
+
+|                         |   X-GENRE (count) |
+|:------------------------|----------:|
+| Information/Explanation |      4025 |
+| News                    |      3160 |
+| Instruction             |      2061 |
+| Promotion               |      1994 |
+| Legal                   |       758 |
+| Opinion/Argumentation   |       709 |
+| Other                   |       323 |
+| Forum                   |        92 |
+| Prose/Lyrical           |        52 |
+
+|                         |    X-GENRE (percentages) |
+|:------------------------|-----------:|
+| Information/Explanation | 0.305526   |
+| News                    | 0.239866   |
+| Instruction             | 0.156445   |
+| Promotion               | 0.151359   |
+| Legal                   | 0.0575376  |
+| Opinion/Argumentation   | 0.0538181  |
+| Other                   | 0.024518   |
+| Forum                   | 0.00698345 |
+| Prose/Lyrical           | 0.00394717 |
+
+Post-processing:
+- discarded labels where the category is "Other" (323 labels, 2%) and "Forum" (92 labels, 0.7%)
+- discarded labels where prediction confidence was below 0.9 (1120 labels, 10%).
+
+**Final results**
+
+Distribution of labels:
+
+|                         |   final-X-GENRE (count) |
+|:------------------------|----------------:|
+| Information/Explanation |            3753 |
+| News                    |            2916 |
+| Instruction             |            1851 |
+| Promotion               |            1806 |
+| Legal                   |             672 |
+| Opinion/Argumentation   |             595 |
+| Prose/Lyrical           |              46 |
+
+|                         |   final-X-GENRE (percentage) |
+|:------------------------|----------------:|
+| Information/Explanation |      0.32245    |
+| News                    |      0.250537   |
+| Instruction             |      0.159034   |
+| Promotion               |      0.155168   |
+| Legal                   |      0.0577369  |
+| Opinion/Argumentation   |      0.0511212  |
+| Prose/Lyrical           |      0.00395223 |
+
+Compared to MaCoCu-sl-en, there is much more News in Icelandic corpus (25% versus 13% in MaCoCu-sl-en), much less Promotion (15% versus 32%) and similar distributions of other labels.
+
+**Distribution of English varieties in genres (doc level)**
+
+Distribution in entire corpus (document level):
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.391908  |
+| UNK |    0.371186  |
+| A   |    0.178306  |
+| MIX |    0.0586003 |
+
+Very similar distribution of variants than the distribution in entire corpus: Information/Explanation (same as in SL) 
+
+More British than in general distribution: News (0.50; same as in SL), Legal (0.50; same as in SL)
+
+More American than in general distribution: Instruction (0.21; same as in SL), Promotion (0.28; same as in SL), Opinion/Argumentation (0.25 - not observed in SL), Prose/Lyrical (0.28; same as in SL)
+
+
+**Length of texts per genre**
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| mean  |     346.647 |
+| std   |     502.707 |
+| min   |      79     |
+| 25%   |     124     |
+| 50%   |     201     |
+| 75%   |     380     |
+| max   |   11125     |
+
+Generally much shorter: Promotion (median 140, mean 210; similar in SL)
+
+Generally slightly shorter: Information/Explanation (median 170, mean 274; similar in SL) 
+
+Generally slightly longer: Instruction (median 248, mean 451; same in SL), News (median 243, mean 345; same in SL), Opinion/Argumentation (median 270, mean 437; same in SL)
+
+Generally much longer: Legal (median 345, mean 689; same in SL), Prose/Lyrical (median 400, mean 985 - in SL it is "slightly shorter")

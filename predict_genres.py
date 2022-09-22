@@ -41,7 +41,12 @@ model = ClassificationModel(
     "xlmroberta", "artifacts/X-GENRE-classifier:v0/")
 
 # Open csv file
-corpus_path = "Macocu-sl-en-doc-format-filtered.csv"
+
+# MaCoCu-sl-en
+#corpus_path = "Macocu-sl-en-doc-format-filtered.csv"
+
+# MaCoCu-sl-is
+corpus_path = "MaCoCu-is/Macocu-is-en-doc-format.csv"
 
 corpus_df = pd.read_csv(corpus_path, sep = "\t", index_col= 0)
 
@@ -136,4 +141,4 @@ def predict(dataframe, file_path):
 sample = corpus_df.sample(n=30)
 predict(sample, "sample-prediction-test.csv")
 
-predict(corpus_df, "Macocu-sl-en-predicted.csv")
+predict(corpus_df, "Macocu-sl-is-predicted.csv")

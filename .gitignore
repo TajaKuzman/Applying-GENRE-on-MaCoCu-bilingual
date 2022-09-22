@@ -13,3 +13,5 @@ Macocu-sl-en-predicted.csv
 batch-backup-predictions.json
 Macocu-is-en.json
 MaCoCu-is-en.tmx
+MaCoCu-is/Macocu-is-en-doc-format.csv
+MaCoCu-is/Macocu-is-en-predicted.csv
