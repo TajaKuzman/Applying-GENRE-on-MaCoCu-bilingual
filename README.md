@@ -17,7 +17,7 @@ Sizes of datasets:
 | Dataset      | Original no. of texts | Pre-processed dataset (texts) | Texts with genre labels |
 |--------------|-----------------------|-------------------------------|-------------------------|
 | MaCoCu-sl-en | 285,892               | 101,807                       | 91,459                  |
-| MaCoCu-mt    | 47,206                | 23,999                        | 21,376                  |
+| MaCoCu-mt-en    | 47,206                | 23,999                        | 21,376                  |
 | MaCoCu-is-en | 40,340                | 13,174                        | 11,639                  |
 
 ## Preparation of the data
