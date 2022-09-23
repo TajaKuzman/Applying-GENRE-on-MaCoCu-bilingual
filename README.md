@@ -8,9 +8,9 @@ This consisted of the following steps:
 
 1. [Preparation of data](#preparation-of-the-data): converted TMX file to CSV, discarded sentences where English and text in other language come from different domain, discarded duplicated English sentences, merged sentences into documents based on source URL.
 2. Pre-processing: discarded all documents, shorter than the median length; discarded non-textual documents based on a no. of punctuations per no. of words heuristic
-3. Applying the X-GENRE classifier to the data (see [results](#prediction-of-genres-to-the-entire-macocu-sl-en-corpus) for MaCoCu-sl-en and [manual analysis of the results](#analysis-of-a-sample-of-150-texts-second-round---pre-processed-corpus))
+3. Applying the X-GENRE classifier to the data (see [manual analysis of the results](#genre-prediction))
 4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with confidence lower than 0.9
-5. Analysis of results for [MaCoCu-sl-en](#analysis-of-predictions-on-entire-macocu-sl-en-corpus-after-post-processing) and [MaCoCu-is-en](#results-of-genre-prediction-on-macocu-is-en), also in regards to varieties of English language
+5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en) and [MaCoCu-mt-en](#macocu-mt-en), also in regards to varieties of English language
 
 
 ## Preparation of the data
@@ -18,79 +18,17 @@ This consisted of the following steps:
 Steps:
 - converted TMX file to JSON file, opened JSON as a dataframe (*1-Bitextor-TMX-to-JSON.ipynb)*
 - sorted all sentences based on the English source and then English sentence id to get the correct order of sentences (from here onwards: *2-JSON-sentence-file-to-doc-format.ipynb*)
-- discarded sentences where Slovene and English text come from different domains (829,191 sentences) to assure that English documents are connected with Slovene (appear on Slovene web)
-- discarded duplicated English sentences with the same par id - 299,167 sentences (they exist because one English sentence was shown to be alligned to more than one Slovene sentence from different documents - discarding duplicated sentences assures that there are no duplicates in English text, however it can destroy the structure of Slovene texts. We are only interested in English texts in this preparation of data.)
-- merged all sentences into English and Slovene documents (based on the English source (web page URL) and Slovene source (URL) each)
+- discarded sentences where English text and text in other language come from different domains to assure that English documents are connected with the national domain in interest (appear in Slovene, Maltese etc. web)
+- discarded duplicated English sentences with the same par id (they exist because one English sentence was shown to be alligned to more than one sentence in another language from different documents - discarding duplicated sentences assures that there are no duplicates in English text, however it can destroy the structure of texts in the other language. We are only interested in English texts in this preparation of data.)
+- merged all sentences into English and Slovene/Maltese/etc. documents (based on the English source (web page URL) and Slovene/Maltese/etc. source (URL) each)
 - converted the dataframe where each sentence is one row into a dataframe where each document is one row (by discarding duplicated English documents)
-- discarded documents that have less than the median no. of words (English length) - less than 75 --> we are left with 103,281 texts
-- discarded documents that have punctuation per no. of words ratio less than 0.015 or more than 0.2 (non-textual documents) - discarded 1474 texts (see notebook *2.1-Filtering-non-textual.ipynb*)
+- discarded documents that have less than the median no. of words (English length) - less than 75 for Slovene, 79 for Maltese and Icelandic
+- discarded documents that have punctuation per no. of words ratio less than 0.015 or more than 0.2 (non-textual documents) (see notebook *2.1-Filtering-non-textual.ipynb*)
 - saved the document format to CSV: Macocu-sl-en-doc-format-filtered.csv
 
 Analysis showed that all sentences from the original TMX file have bicleaner score higher than 0.50 - bad sentences must have been cleaned out before.
 
-Initial no. of texts: 285,892 (no. of sentences: 3,176,311); final no. of texts: 101,807	
-
-Initial length of English texts, without deduplicaton of English sentences (before removal of domains that do not match):
-
-![](figures/Initial-English-length.png)
-
-Initial length of English texts after deduplication and removal of domains that do not match and non-textual texts (based on punct. ratio):
-
-![](figures/Initial-length-after-filtering.png)
-
-After deduplication, texts are slightly shorter. The biggest difference is with the longer texts.
-
-### Statistics for Macocu-sl-en after pre-processing
-
-English variants (document level)
-
-|     |   en_var_doc |
-|:----|-------------:|
-| B   |    0.421287  |
-| UNK |    0.351813  |
-| A   |    0.165755  |
-| MIX |    0.0611451 |
-
-English variants (domain level)
-
-|     |   en_var_dom |
-|:----|-------------:|
-| B   |   0.567122   |
-| MIX |   0.281886   |
-| A   |   0.140992   |
-| UNK |   0.00999931 |
-
-Translation direction
-
-|         |   translation_direction |
-|:--------|------------------------:|
-| sl-orig |                  0.8893 |
-| en-orig |                  0.1107 |
-
-Average bi-cleaner score on document level
-
-|       |   average_score |
-|:------|----------------:|
-| count |  101807         |
-| mean  |       0.897452  |
-| std   |       0.0634431 |
-| min   |       0.502     |
-| 25%   |       0.868429  |
-| 50%   |       0.913667  |
-| 75%   |       0.942684  |
-| max   |       0.9905    |
-
-As we can see, almost all of the documents were originally written in Slovene (89%). Most of them are identified as British (42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (57%) were identified to be British. Most of the texts have quality higher than 0.90 based on the bicleaner score.
-
-<!--
-
-Manual analysis of 20 random instances:
-- 13 were okay, 7 not okay
-- 4 out of 7 bad instances had different domains, 1 out 13 good instances had different domains > based on this, we discarded instances from different domains
-- lowest bicleaner score of good instances was 0.81, bad instances had average scores between 0.73 and 0.88.
-- for 4 out of 7 instances there was a huge difference in length of Slovene and English text (205 vs. 55, 139 vs. 3, 625 vs. 55 etc.)
-
--->
+## Genre prediction
 
 ### Analysis of a sample of 100 texts - first round
 
@@ -119,73 +57,6 @@ Classification report:
 Other notes:
 - there are some obvious machine translations (1353811, 1844711 - oblacila.si)
 - some English texts do not correspond to Slovene texts (1481642, 183369, 1944325)
-
-## Prediction of genres to the entire MaCoCu-sl-en corpus
-
-By predicting on batches of 8 instances, the prediction was much faster - 6 hours for around 100k texts (without using batches, it would be 14 days).
-
-General statistics:
-
-|                         |   X-GENRE (count)|
-|:------------------------|----------:|
-| Information/Explanation |     32368 |
-| Promotion               |     31384 |
-| News                    |     13605 |
-| Instruction             |     10846 |
-| Legal                   |      5866 |
-| Opinion/Argumentation   |      4863 |
-| Other                   |      2194 |
-| Forum                   |       405 |
-| Prose/Lyrical           |       276 |
-
-|                         |    X-GENRE (percentages)|
-|:------------------------|-----------:|
-| Information/Explanation | 0.317935   |
-| Promotion               | 0.30827    |
-| News                    | 0.133635   |
-| Instruction             | 0.106535   |
-| Legal                   | 0.0576188  |
-| Opinion/Argumentation   | 0.0477669  |
-| Other                   | 0.0215506  |
-| Forum                   | 0.00397812 |
-| Prose/Lyrical           | 0.00271101 |
-
-The certainty of prediction (softmax scores of the raw output):
-
-|       |   chosen_category_distr |
-|:------|------------------------:|
-| mean  |                0.970066 |
-| std   |                0.089027 |
-| min   |                0.247184 |
-| 25%   |                0.995622 |
-| 50%   |                0.998666 |
-| 75%   |                0.998966 |
-| max   |                0.999145 |
-
-<!--
-
-Distribution of English varieties in genres (doc level):
-
-Distribution in entire corpus:
-
-English variants (document level)
-
-|     |   en_var_doc |
-|:----|-------------:|
-| B   |    0.421287  |
-| UNK |    0.351813  |
-| A   |    0.165755  |
-| MIX |    0.0611451 |
-
-Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation, Other
-
-More British than in general distribution: News (0.55), Legal (0.68)
-
-More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.23)
-
-More Unknown than in general distribution: Forum (0.51)
-
--->
 
 ### Analysis of a sample of 150 texts (second round - pre-processed corpus)
 
@@ -248,7 +119,152 @@ Results on the stratified sample:
 
 ![](figures/Confusion-matrix-predicted-sample-cleaned-stratified-92-instances-second-round.png)
 
-## Analysis of predictions on entire MaCoCu-sl-en corpus after post-processing
+## MaCoCu-sl-en
+
+Initial no. of texts: 285,892 (no. of sentences: 3,176,311); final no. of texts: 101,807
+
+Pre-processing:
+- discarded sentences where English text and text in other language come from different domains (829,191 sentences)
+- discarded duplicated English sentences (with the same par id) (299,167 sentences)
+- discarded texts that have length less than the median - 75 words --> we are left with 103,281 texts
+- discarded non-textual documents based on a heuristic - discarded 1,474 texts
+
+<!--
+Initial length of English texts, without deduplicaton of English sentences (before removal of domains that do not match):
+
+![](figures/Initial-English-length.png)
+-->
+
+Final length of English texts:
+
+![](figures/Initial-length-after-filtering.png)
+
+
+### Statistics for Macocu-sl-en after pre-processing
+
+English variants (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.421287  |
+| UNK |    0.351813  |
+| A   |    0.165755  |
+| MIX |    0.0611451 |
+
+English variants (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| B   |   0.567122   |
+| MIX |   0.281886   |
+| A   |   0.140992   |
+| UNK |   0.00999931 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| sl-orig |                  0.8893 |
+| en-orig |                  0.1107 |
+
+Average bi-cleaner score on document level
+
+|       |   average_score |
+|:------|----------------:|
+| count |  101807         |
+| mean  |       0.897452  |
+| std   |       0.0634431 |
+| min   |       0.502     |
+| 25%   |       0.868429  |
+| 50%   |       0.913667  |
+| 75%   |       0.942684  |
+| max   |       0.9905    |
+
+As we can see, almost all of the documents were originally written in Slovene (89%). Most of them are identified as British (42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (57%) were identified to be British. Most of the texts have quality higher than 0.90 based on the bicleaner score.
+
+<!--
+
+Manual analysis of 20 random instances:
+- 13 were okay, 7 not okay
+- 4 out of 7 bad instances had different domains, 1 out 13 good instances had different domains > based on this, we discarded instances from different domains
+- lowest bicleaner score of good instances was 0.81, bad instances had average scores between 0.73 and 0.88.
+- for 4 out of 7 instances there was a huge difference in length of Slovene and English text (205 vs. 55, 139 vs. 3, 625 vs. 55 etc.)
+
+-->
+
+### Prediction of genres to the entire MaCoCu-sl-en corpus
+
+By predicting on batches of 8 instances, the prediction was much faster - 6 hours for around 100k texts (without using batches, it would be 14 days).
+
+<!--
+### Results of predictions before pre-processing
+
+General statistics:
+
+|                         |   X-GENRE (count)|
+|:------------------------|----------:|
+| Information/Explanation |     32368 |
+| Promotion               |     31384 |
+| News                    |     13605 |
+| Instruction             |     10846 |
+| Legal                   |      5866 |
+| Opinion/Argumentation   |      4863 |
+| Other                   |      2194 |
+| Forum                   |       405 |
+| Prose/Lyrical           |       276 |
+
+|                         |    X-GENRE (percentages)|
+|:------------------------|-----------:|
+| Information/Explanation | 0.317935   |
+| Promotion               | 0.30827    |
+| News                    | 0.133635   |
+| Instruction             | 0.106535   |
+| Legal                   | 0.0576188  |
+| Opinion/Argumentation   | 0.0477669  |
+| Other                   | 0.0215506  |
+| Forum                   | 0.00397812 |
+| Prose/Lyrical           | 0.00271101 |
+
+The certainty of prediction (softmax scores of the raw output):
+
+|       |   chosen_category_distr |
+|:------|------------------------:|
+| mean  |                0.970066 |
+| std   |                0.089027 |
+| min   |                0.247184 |
+| 25%   |                0.995622 |
+| 50%   |                0.998666 |
+| 75%   |                0.998966 |
+| max   |                0.999145 |
+
+
+
+Distribution of English varieties in genres (doc level):
+
+Distribution in entire corpus:
+
+English variants (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.421287  |
+| UNK |    0.351813  |
+| A   |    0.165755  |
+| MIX |    0.0611451 |
+
+Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation, Other
+
+More British than in general distribution: News (0.55), Legal (0.68)
+
+More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.23)
+
+More Unknown than in general distribution: Forum (0.51)
+
+-->
+
+Post-processing:
+- discarded labels "Other" and "Forum"
+- discarded labels where prediction certainty is less than 0.9.
 
 Post-processing discarded predictions of 10,348 texts (10%).
 
@@ -274,7 +290,7 @@ Final distribution of labels:
 | Opinion/Argumentation   |      0.0435168  |
 | Prose/Lyrical           |      0.00238358 |
 
-### Distribution of English varieties in genres (doc level)
+**Distribution of English varieties in genres (doc level)**
 
 Distribution in entire corpus (document level):
 
@@ -293,7 +309,7 @@ More American than in general distribution: Promotion (0.22), Instruction (0.21)
 
 More Unknown than in general distribution: Instruction (0.49)
 
-### Length of texts per genre
+**Length of texts per genre**
 
 Length in entire corpus:
 
