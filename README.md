@@ -12,6 +12,13 @@ This consisted of the following steps:
 4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with confidence lower than 0.9
 5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en) and [MaCoCu-mt-en](#macocu-mt-en), also in regards to varieties of English language
 
+Sizes of datasets:
+
+| Dataset      | Original no. of texts | Pre-processed dataset (texts) | Texts with genre labels |
+|--------------|-----------------------|-------------------------------|-------------------------|
+| MaCoCu-sl-en | 285,892               | 101,807                       | 91,459                  |
+| MaCoCu-mt    | 47,206                | 23,999                        | 21,376                  |
+| MaCoCu-is-en | 40,340                | 13,174                        | 11,639                  |
 
 ## Preparation of the data
 
@@ -266,7 +273,7 @@ Post-processing:
 - discarded labels "Other" and "Forum"
 - discarded labels where prediction certainty is less than 0.9.
 
-Post-processing discarded predictions of 10,348 texts (10%).
+Post-processing discarded predictions of 10,348 texts (10%). Number of texts with predicted labels: 91,459.
 
 Final distribution of labels:
 
@@ -440,6 +447,8 @@ Distribution of labels:
 Post-processing:
 - discarded labels where the category is "Other" (323 labels, 2%) and "Forum" (92 labels, 0.7%)
 - discarded labels where prediction confidence was below 0.9 (1120 labels, 10%).
+
+Final no. of texts with predicted labels: 11,639.
 
 **Final results**
 
@@ -620,6 +629,8 @@ Distribution of labels:
 Post-processing:
 - discarded labels where the category is "Other" (345 labels, 1.4%) and "Forum" (48 labels, 0.2%)
 - discarded labels where prediction confidence was below 0.9 (2230 labels, 9%).
+
+Final no. of texts with predicted labels: 21,376.
 
 **Final results**
 
