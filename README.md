@@ -490,3 +490,85 @@ Generally slightly shorter: Information/Explanation (median 170, mean 274; simil
 Generally slightly longer: Instruction (median 248, mean 451; same in SL), News (median 243, mean 345; same in SL), Opinion/Argumentation (median 270, mean 437; same in SL)
 
 Generally much longer: Legal (median 345, mean 689; same in SL), Prose/Lyrical (median 400, mean 985 - in SL it is "slightly shorter")
+
+
+## MaCoCu-mt-en
+
+Initial no. of sentences: 1,231,654; no. of texts: 47,206
+
+Pre-processing:
+- discarded instances where English and Maltese come from different domains (129,097 sentences, 9257 texts)
+- discarded duplicated English sentences (with the same par id - 64,188 sentences, 283 texts)
+- discarded duplicated documents (85 texts) --> no. of remaining texts: 37,581
+
+Initial length of texts:
+
+|       |   en_length |
+|:------|------------:|
+| count |   37581     |
+| mean  |     838.355 |
+| std   |    3183.44  |
+| min   |       2     |
+| 25%   |      48     |
+| 50%   |     142     |
+| 75%   |     440     |
+| max   |  123935     |
+
+- texts are in general longer than in other datasets, so we will not discard texts based on the median (we would lose useful texts which could change the distribution of genres). I discarded the texts with length less than 79 which is similar to the other two MaCoCu datasets. --> remaining no. of texts: 24,104
+- non-textual texts filtered out based on a heuristic (105 texts) -> final no. of texts: 23,999
+
+### Statistics for MaCoCu-is-en after pre-processing
+
+English variant (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.63386   |
+| UNK |    0.241593  |
+| A   |    0.0928372 |
+| MIX |    0.0317097 |
+
+
+English variant (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| B   |  0.881245    |
+| A   |  0.113005    |
+| MIX |  0.00504188  |
+| UNK |  0.000708363 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| en-orig |                  0.5909 |
+| mt-orig |                  0.4091 |
+
+
+Average bicleaner score
+
+|       |   average_score |
+|:------|----------------:|
+| mean  |       0.91717   |
+| std   |       0.0637326 |
+| min   |       0.5       |
+| 25%   |       0.883162  |
+| 50%   |       0.929562  |
+| 75%   |       0.962129  |
+| max   |       1         |
+
+Length of English text
+
+|       |   en_length |
+|:------|------------:|
+| count |    23999    |
+| mean  |     1290.69 |
+| std   |     3911.68 |
+| min   |       79    |
+| 25%   |      153    |
+| 50%   |      300    |
+| 75%   |      853    |
+| max   |   123935    |
+
+In contrast to the other two datasets where almost all of the documents were originally written in Icelandic (77%) or Slovene (89%), here, most of the texts were originally written in English (59%), not Maltese. There is much more British, and much less American and Unknown in this corpus in comparison to the other two (63%; MaCoCu-is-en: 39%, MaCoCu-sl-en: 42%) (English variety detection on document level). On the domain level, 88% of texts were identified to be British (MaCoCu-is-en: 59%, MaCoCu-sl-en: 57%). Most of the texts have quality higher than 0.93 based on the bicleaner score (in MaCoCu-sl-en the score is lower - median is 0.90, even lower in MaCoCu-is-en: 0.88). Texts are generally longer than in other two corpora.
