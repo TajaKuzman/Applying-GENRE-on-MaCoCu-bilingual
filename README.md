@@ -588,3 +588,106 @@ Length of English text
 | max   |   123935    |
 
 In contrast to the other two datasets where almost all of the documents were originally written in Icelandic (77%) or Slovene (89%), here, most of the texts were originally written in English (59%), not Maltese. There is much more British, and much less American and Unknown in this corpus in comparison to the other two (63%; MaCoCu-is-en: 39%, MaCoCu-sl-en: 42%) (English variety detection on document level). On the domain level, 88% of texts were identified to be British (MaCoCu-is-en: 59%, MaCoCu-sl-en: 57%). Most of the texts have quality higher than 0.93 based on the bicleaner score (in MaCoCu-sl-en the score is lower - median is 0.90, even lower in MaCoCu-is-en: 0.88). Texts are generally longer than in other two corpora.
+
+### Results of genre prediction on MaCoCu-mt-en
+
+Distribution of labels:
+
+|                         |   X-GENRE (count) |
+|:------------------------|----------:|
+| News                    |      8046 |
+| Legal                   |      6443 |
+| Information/Explanation |      4677 |
+| Instruction             |      2075 |
+| Opinion/Argumentation   |      1025 |
+| Promotion               |       687 |
+| Prose/Lyrical           |       653 |
+| Other                   |       345 |
+| Forum                   |        48 |
+
+|                         |    X-GENRE (percentages) |
+|:------------------------|-----------:|
+| News                    | 0.335264   |
+| Legal                   | 0.26847    |
+| Information/Explanation | 0.194883   |
+| Instruction             | 0.0864619  |
+| Opinion/Argumentation   | 0.0427101  |
+| Promotion               | 0.0286262  |
+| Prose/Lyrical           | 0.0272095  |
+| Other                   | 0.0143756  |
+| Forum                   | 0.00200008 |
+
+Post-processing:
+- discarded labels where the category is "Other" (345 labels, 1.4%) and "Forum" (48 labels, 0.2%)
+- discarded labels where prediction confidence was below 0.9 (2230 labels, 9%).
+
+**Final results**
+
+Distribution of labels:
+
+|                         |   final-X-GENRE (count) |
+|:------------------------|----------------:|
+| News                    |            7481 |
+| Legal                   |            5962 |
+| Information/Explanation |            4107 |
+| Instruction             |            1829 |
+| Opinion/Argumentation   |             820 |
+| Prose/Lyrical           |             589 |
+| Promotion               |             588 |
+
+
+|                         |   final-X-GENRE (percentages) |
+|:------------------------|----------------:|
+| News                    |       0.349972  |
+| Legal                   |       0.278911  |
+| Information/Explanation |       0.192131  |
+| Instruction             |       0.0855632 |
+| Opinion/Argumentation   |       0.0383608 |
+| Prose/Lyrical           |       0.0275543 |
+| Promotion               |       0.0275075 |
+
+Compared to other two corpora, there is much more News (35% versus Icelandic: 25%, Slovene: 13%), Legal (28% versus Icelandic 6%) and Prose/Lyrical (3% versus Icelandic: 0.3%), and much less Information/Explanation (19% versus Icelandic: 32%) and Promotion (3% versus Icelandic: 16%, Slovene: 32%).
+
+**Distribution of English varieties in genres (doc level)**
+
+Distribution in entire corpus (document level):
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.63386   |
+| UNK |    0.241593  |
+| A   |    0.0928372 |
+| MIX |    0.0317097 |
+
+Very similar distribution of variants than the distribution in entire corpus: News (in Slovene and Icelandic there is more British than in general - 0.5), Information/Explanation (same in SL, IS)
+
+More British than in general distribution: Legal (0.75 - same in SL, IS)
+
+Less uknown than in general distribution: Promotion (less American and British; in other corpora, Promotion has more American)
+
+More American than in general distribution: Opinion/Argumentation (0.34; observed also in Icelandic: 0.25, not observed in SL), Instruction (0.13; similar in SL and Icelandic), Prose/Lyrical (0.50, same observed in SL, IS)
+
+
+**Length of texts per genre**
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| mean  |     1290.69 |
+| std   |     3911.68 |
+| min   |       79    |
+| 25%   |      153    |
+| 50%   |      300    |
+| 75%   |      853    |
+| max   |   123935    |
+
+Generally much shorter: Promotion (median 172, mean 257; same in SL and IS), Poetry/Lyrical (median 169, mean 265, in SL, it is "slightly shorter", in IS, it is "much longer" )
+
+Very similar than general distribution: Instruction (median 284, mean 526; similar lengths in SL and IS but there this is longer than general distribution), Information/Explanation (median 320, mean 1153; in SL and IS this genre is slightly shorter than general length) 
+
+Generally slightly shorter: News (median 213, mean 593; in SL and IS similar length but is slightly longer compared to general distribution), 
+
+Generally slightly longer: Opinion/Argumentation (median 498, mean 720; same in SL and IS)
+
+Generally much longer: Legal (median 606, mean 2846; same in SL, IS - there texts are still shorter than that - IS: median 345, mean 689)
