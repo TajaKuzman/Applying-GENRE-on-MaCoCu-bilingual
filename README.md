@@ -10,7 +10,7 @@ This consisted of the following steps:
 2. Pre-processing: discarded all documents, shorter than the median length; discarded non-textual documents based on a no. of punctuations per no. of words heuristic
 3. Applying the X-GENRE classifier to the data (see [manual analysis of the results](#genre-prediction))
 4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with confidence lower than 0.9
-5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en) and [MaCoCu-mt-en](#macocu-mt-en), also in regards to varieties of English language
+5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en), [MaCoCu-mt-en](#macocu-mt-en), [MaCoCu-mk-en](#macocu-mk-en) also in regards to varieties of English language
 
 Sizes of datasets:
 
@@ -19,6 +19,14 @@ Sizes of datasets:
 | MaCoCu-sl-en | 285,892               | 101,807                       | 91,459                  |
 | MaCoCu-mt-en    | 47,206                | 23,999                        | 21,376                  |
 | MaCoCu-is-en | 40,340                | 13,174                        | 11,639                  |
+
+## Steps
+
+1. Copy the notebooks 1-, 2- and 5- from the root folder (or ones of the folders from other parallel corpora) to a folder dedicated to the new parallel corpus. While running code, change the cells accordingly to the new language code.
+2. Convert TMX file to JSON, open JSON as a dataframe: 1-Bitextor-TMX-to-JSON.ipynb
+3. Pre-process data, save the document-based file as CSV: 2-JSON-sentence-file-to-doc-format.ipynb; add information on the discarded texts and general statistics of the corpus to the README
+4. Apply genre prediction to the file: change the file path in predict_genres.py and run the code in the terminal: ```nohup python predict_genres.py```
+5. Post-process the data and analyse the results; add information on the results to the README: 5-Post-processing-of-predicted-data-and-analysis.ipynb
 
 ## Preparation of the data
 
@@ -199,6 +207,18 @@ Manual analysis of 20 random instances:
 
 -->
 
+Statistics on English domains: there are 6,066 different domains.
+
+There are only 5 domains which cover more than 1% of data, the domain with the largest frequency is oblacila.si which covers 3.5% of the data.
+
+|                                            |   Count |   Percentage |
+|:-------------------------------------------|--------:|-------------:|
+| oblacila.si (95% Promotion)                               |    3600 |  3.5361      |
+| europarl.europa.eu   (40% Legal, 39% News)                      |    2444 |  2.40062     |
+| eur-lex.europa.eu   (84% Legal)                       |    2128 |  2.09023     |
+| eu2008.si  (80% News)                               |    1355 |  1.33095     |
+| gov.si     (56% News, 26% Information/Explanation)                                |    1087 |  1.06771     |
+
 ### Prediction of genres to the entire MaCoCu-sl-en corpus
 
 By predicting on batches of 8 instances, the prediction was much faster - 6 hours for around 100k texts (without using batches, it would be 14 days).
@@ -297,24 +317,35 @@ Final distribution of labels:
 | Opinion/Argumentation   |      0.0435168  |
 | Prose/Lyrical           |      0.00238358 |
 
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 0; most frequent domain: ourspace.si (5% of all Opinion/Argumentation)
+- News: domains with more than 10%: 0; most frequent domain: eu2008.si (8% of all News)
+- Legal: domains with more than 10%: 2; most frequent domain: eur-lex.europa.eu (32% of all Legal), europarl.europa.eu: 16%
+- Information/Explanation:  domains with more than 10%: 0; most frequent domain: ricinus2.mf.uni-lj.si (3%)
+- Promotion:  domains with more than 10%: 1; most frequent domain: oblacila.si (11%)
+- Instruction: domains with more than 10%: 1; most frequent domain: support.apple.com (10%)
+- Prose/Lyrical: domains with more than 10%: 2; most frequent domain: jw.org (26%), bsf.si (22%)
+
 **Distribution of English varieties in genres (doc level)**
 
 Distribution in entire corpus (document level):
 
 |     |   en_var_doc |
 |:----|-------------:|
-| B   |    0.421287  |
-| UNK |    0.351813  |
-| A   |    0.165755  |
-| MIX |    0.0611451 |
+| B   |    0.42  |
+| UNK |    0.35  |
+| A   |    0.17  |
+| MIX |    0.06 |
 
-Very similar distribution of variants than the distribution in entire corpus: Opinion/Argumentation, Information/Explanation
+- Opinion/Argumentation: 0.43 B, 0.17 A; 1 point more B, same A --> same distribution
+- News: 0.55 B, 0.09 A; 13 points more B, 8 points less A --> more B, less A
+- Legal: 0.69 B, 0.06 A; 27 points more B, 11 points less A --> more B, less A
+- Information/Explanation: 0.43 B, 0.14 A; 1 point more B, 3 points less A --> same distribution
+- Promotion: 0.36 B, 0.22 A; 6 points less B, 5 points more A --> less B, more A
+- Instruction: 0.26 B, 0.22 A; 16 points less B, 5 points more A --> less B, more A
+- Prose/Lyrical: 0.33 B, 0.25 A; 9 points less B, 8 points more A --> less B, more A
 
-More British than in general distribution: News (0.55), Legal (0.69)
-
-More American than in general distribution: Promotion (0.22), Instruction (0.21), Prose/Lyrical (0.25)
-
-More Unknown than in general distribution: Instruction (0.49)
 
 **Length of texts per genre**
 
@@ -330,11 +361,21 @@ Length in entire corpus:
 | 75%   |     346     |
 | max   |   98761     |
 
-Generally slightly shorter: Information/Explanation (median 179, mean 334, Promotion (median 159, mean 229), Prose/Lyrical (median 155, mean 777)
+Median lengths:
+- Information/Explanation: 179
+- Promotion: 159
+- Prose/Lyrical: 155
+- Opinion/Argumentation: 230
+- News: 232
+- Instruction: 226
+- Legal: 429
 
-Generally slightly longer: Opinion/Argumentation, News (median 230, mean 429-459), Instruction (median 226, mean 357)
+Similar length to the general length (10 words difference): 
+Slightly shorter (10-100 words difference): Information/Explanation, Promotion, Prose/Lyrical
+Much shorter (more than 100 words difference): 
+Slightly longer (10-100 words difference): Opinion/Argumentation, News, Instruction
+Much longer (more than 100 words difference): Legal
 
-Generally much longer: Legal (median 429, mean 2164)
 
 ## MaCoCu-is-en
 
@@ -416,6 +457,29 @@ Length of English text
 
 As we can see, almost all of the documents were originally written in Icelandic (77%), but less than in MaCoCu-sl-en (Slovene: 89%). Most of them are identified as British (39%; in MaCoCu-sl-en: 42%), followed by "unknown" and much less American texts (English variety detection on document level). On the domain level, most of them (59%; in MaCoCu-sl-en: 57%) were identified to be British. Most of the texts have quality higher than 0.88 based on the bicleaner score (in MaCoCu-sl-en the score is higher - median is 0.90).
 
+Statistics on English domains: there are 1,112 different domains.
+
+There are 16 domains which cover more than 1% of data, the domain with the largest frequency is norden which covers 7% of the data.
+
+|                                  |   Count |   Percentage |
+|:---------------------------------|--------:|-------------:|
+| norden (46% News, 25% Information/Explanation)                          |     913 |   6.93032    |
+| eso (69% Information/Explanation, 30% News)                             |     528 |   4.00789    |
+| landssjodir  (96% News)                    |     373 |   2.83133    |
+| rnh   (70% News, 29% Information/Explanation)                           |     336 |   2.55048    |
+| lhi  (48% Information/Explanation, 24% Opinion/Argumentation)                            |     320 |   2.42903    |
+| booking    (54% Promotion, 44 Instruction)                      |     310 |   2.35312    |
+| neway  (38% Instruction, 23% News)                          |     274 |   2.07985    |
+| efling  (63% News)                         |     264 |   2.00395    |
+| garnstudio   (94% Instruction)                    |     251 |   1.90527    |
+| laeknabladid (100% Information/Explanation)                    |     219 |   1.66237    |
+| skaftfell   (40% Information/Explanation, 36% News)                     |     170 |   1.29042    |
+| linde-gas   (55% Promotion, 34% Information/Explanation)                     |     147 |   1.11583    |
+| land  (45% Instruction, 33% Legal)                           |     140 |   1.0627     |
+| landsbokasafn (60% Information/Explanation, 35% News)                   |     138 |   1.04752    |
+| arionbanki (68% News)                       |     135 |   1.02475    |
+| borgarbokasafn  (64% Promotion)                 |     132 |   1.00197    |
+
 ### Results of genre prediction on MaCoCu-is-en
 
 Distribution of labels:
@@ -476,22 +540,34 @@ Distribution of labels:
 
 Compared to MaCoCu-sl-en, there is much more News in Icelandic corpus (25% versus 13% in MaCoCu-sl-en), much less Promotion (15% versus 32%) and similar distributions of other labels.
 
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 2; most frequent domain: norden (16% of all Opinion), lhi (10%)
+- News: domains with more than 10%: 2; most frequent domain: norden (13% of all News), landssjodir (12%)
+- Legal: domains with more than 10%: 0; most frequent domain: randa (8%)
+- Information/Explanation:  domains with more than 10%: 0; most frequent domain: eso (9%)
+- Promotion:  domains with more than 10%: 0; most frequent domain: booking (5%)
+- Instruction: domains with more than 10%: 1; most frequent domain: garnstudio (13%)
+- Prose/Lyrical: domains with more than 10%: 2; most frequent domain: biblegateway (33%), heathengods (13%)
+
 **Distribution of English varieties in genres (doc level)**
 
 Distribution in entire corpus (document level):
 
 |     |   en_var_doc |
 |:----|-------------:|
-| B   |    0.391908  |
-| UNK |    0.371186  |
-| A   |    0.178306  |
-| MIX |    0.0586003 |
+| B   |    0.39  |
+| UNK |    0.37  |
+| A   |    0.18  |
+| MIX |    0.06 |
 
-Very similar distribution of variants than the distribution in entire corpus: Information/Explanation (same as in SL) 
-
-More British than in general distribution: News (0.50; same as in SL), Legal (0.50; same as in SL)
-
-More American than in general distribution: Instruction (0.21; same as in SL), Promotion (0.28; same as in SL), Opinion/Argumentation (0.25 - not observed in SL), Prose/Lyrical (0.28; same as in SL)
+- Instruction: 0.35 B, 0.21 A; 4 points less B, 3 points more A --> similar distribution
+- News: 0.50 B, 0.11 A; 11 points more B, 7 points less A --> more B, less A
+- Promotion: 0.28 A, 0.25 B; 10 points more A, 14 points less B --> more A, less B
+- Information/Explanation: 0.40 B, 0.15 A; 1 point more B, 3 points less B --> similar distribution
+- Legal: 0.50 B, 0.13 A; 11 points more B, 5 points less A --> more B, less A
+- Opinion/Argumentation: 0.36 B, 0.25 A; 3 points less B, 7 points more A; more A
+- Prose/Lyrical: 0.30 B, 0.28 A; 9 points less B, 10 points more A --> less B, more A
 
 
 **Length of texts per genre**
@@ -508,13 +584,20 @@ Length in entire corpus:
 | 75%   |     380     |
 | max   |   11125     |
 
-Generally much shorter: Promotion (median 140, mean 210; similar in SL)
+Length in terms of median:
+- Instruction: 248
+- News: 243
+- Promotion: 140
+- Information/Explanation: 170
+- Legal: 345
+- Opinion/Argumentation: 270
+- Prose/Lyrical: 400
 
-Generally slightly shorter: Information/Explanation (median 170, mean 274; similar in SL) 
-
-Generally slightly longer: Instruction (median 248, mean 451; same in SL), News (median 243, mean 345; same in SL), Opinion/Argumentation (median 270, mean 437; same in SL)
-
-Generally much longer: Legal (median 345, mean 689; same in SL), Prose/Lyrical (median 400, mean 985 - in SL it is "slightly shorter")
+Similar length to the general length (10 words difference): 
+Slightly shorter (10-100 words difference): Promotion, Information/Explanation
+Much shorter (more than 100 words difference):
+Slightly longer (10-100 words difference): Instruction, News, Opinion/Argumentation
+Much longer (more than 100 words difference): Legal, Prose/Lyrical
 
 
 ## MaCoCu-mt-en
@@ -542,7 +625,7 @@ Initial length of texts:
 - texts are in general longer than in other datasets, so we will not discard texts based on the median (we would lose useful texts which could change the distribution of genres). I discarded the texts with length less than 79 which is similar to the other two MaCoCu datasets. --> remaining no. of texts: 24,104
 - non-textual texts filtered out based on a heuristic (105 texts) -> final no. of texts: 23,999
 
-### Statistics for MaCoCu-is-en after pre-processing
+### Statistics for MaCoCu-mt-en after pre-processing
 
 English variant (document level)
 
@@ -597,6 +680,24 @@ Length of English text
 | max   |   123935    |
 
 In contrast to the other two datasets where almost all of the documents were originally written in Icelandic (77%) or Slovene (89%), here, most of the texts were originally written in English (59%), not Maltese. There is much more British, and much less American and Unknown in this corpus in comparison to the other two (63%; MaCoCu-is-en: 39%, MaCoCu-sl-en: 42%) (English variety detection on document level). On the domain level, 88% of texts were identified to be British (MaCoCu-is-en: 59%, MaCoCu-sl-en: 57%). Most of the texts have quality higher than 0.93 based on the bicleaner score (in MaCoCu-sl-en the score is lower - median is 0.90, even lower in MaCoCu-is-en: 0.88). Texts are generally longer than in other two corpora.
+
+The distribution of domains in the Maltese corpus is much more worrying than in the others - there are 13 domains which cover more than 1% of data, three of them cover more than 10 % (jointly they cover 49% of data); the domain with the largest frequency is europarl.europa.eu which covers 23% of the data.
+
+|                                    |   Count |   Percentage |
+|:-----------------------------------|--------:|-------------:|
+| europarl.europa.eu  (42% Legal, 41% News)               |    5589 |  23.2885     |
+| newsbook.com.mt  (94% News)                  |    3139 |  13.0797     |
+| eur-lex.europa.eu (84% Legal)                 |    3101 |  12.9214     |
+| wol.jw.org (45% Information/Explanation, 38% Prose/Lyrical)                        |    1632 |   6.80028    |
+| dg-justice-portal-demo.eurodyn.com (60% Legal, 21 % Instruction) |    1255 |   5.22938    |
+| jw.org   (48% Information/Explanation, 27% Instruction)                          |     749 |   3.12096    |
+| europa.eu (51% Instruction, 25% Information/Explanation)                         |     617 |   2.57094    |
+| ec.europa.eu   (44% Information/Explanation, 22% News)                    |     528 |   2.20009    |
+| tvm.com.mt  (97% News)                       |     445 |   1.85424    |
+| cor.europa.eu  (89% News)                    |     422 |   1.75841    |
+| weekly.uhm.org.mt (76% News)                 |     384 |   1.60007    |
+| cnimalta.org  (63% Opinion/Argumentation)                     |     267 |   1.11255    |
+| ecb.europa.eu   (54% News)                   |     241 |   1.00421    |
 
 ### Results of genre prediction on MaCoCu-mt-en
 
@@ -659,24 +760,35 @@ Distribution of labels:
 
 Compared to other two corpora, there is much more News (35% versus Icelandic: 25%, Slovene: 13%), Legal (28% versus Icelandic 6%) and Prose/Lyrical (3% versus Icelandic: 0.3%), and much less Information/Explanation (19% versus Icelandic: 32%) and Promotion (3% versus Icelandic: 16%, Slovene: 32%).
 
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 4 (covering 56% of this genre class); most frequent domains: cnimalta.org (18% of all Opinion), wol.jw.org (17%), churchofjesuschrist.org (11%), jw.org (11%)
+- News: domains with more than 10%: 2 (covering 63% of this genre class); most frequent domain: newsbook.com.mt (38% of all News), europarl.europa.eu (26%)
+- Legal: domains with more than 10%: 3 (covering 85% of all Legal); most frequent domain: eur-lex.europa.eu (41%), europarl.europa.eu (33%), dg-justice-portal-demo.eurodyn.com (11%)
+- Information/Explanation:  domains with more than 10%: 2; most frequent domain: europarl.europa.eu (19%), wol.jw.org (15%)
+- Promotion:  domains with more than 10%: 1; most frequent domain: airmalta.com (11%)
+- Instruction: domains with more than 10%: 3; most frequent domain: europa.eu (15%), dg-justice-portal-demo.eurodyn.com (12%), jw.org (10%)
+- Prose/Lyrical: domains with more than 10%: 1 (covering 88% of Prose/Lyrical); most frequent domain: wol.jw.org (88%)
+
 **Distribution of English varieties in genres (doc level)**
 
 Distribution in entire corpus (document level):
 
 |     |   en_var_doc |
 |:----|-------------:|
-| B   |    0.63386   |
-| UNK |    0.241593  |
-| A   |    0.0928372 |
-| MIX |    0.0317097 |
+| B   |    0.63   |
+| UNK |    0.24  |
+| A   |    0.09 |
+| MIX |    0.03 |
 
-Very similar distribution of variants than the distribution in entire corpus: News (in Slovene and Icelandic there is more British than in general - 0.5), Information/Explanation (same in SL, IS)
-
-More British than in general distribution: Legal (0.75 - same in SL, IS)
-
-Less uknown than in general distribution: Promotion (less American and British; in other corpora, Promotion has more American)
-
-More American than in general distribution: Opinion/Argumentation (0.34; observed also in Icelandic: 0.25, not observed in SL), Instruction (0.13; similar in SL and Icelandic), Prose/Lyrical (0.50, same observed in SL, IS)
+Distribution in each genre:
+- News: 0.68 B, 0.02 A; 5 points more B, 7 points less A --> more B, less A
+- Opinion/Argumentation: 0.40 B, 0.34 A; 23 less B, 25 more A --> less B, more A
+- Promotion: 0.52 B, 0.07 A; 11 less B, 2 less A --> less B
+- Instruction: 0.51 B, 0.14 A; 12 less B, 5 more A --> less B, more A
+- Information/Explanation: 0.59 B, 0.16 A --> 4 points less B, 7 points more A --> more A
+- Legal: 0.75 B, 0.04 A --> 12 points more B, 5 points less A --> more B, less A
+- Prose/Lyrical: 0.04 B, 0.50 A; 59 points less B, 41 points more A --> less B, more A
 
 
 **Length of texts per genre**
@@ -693,12 +805,217 @@ Length in entire corpus:
 | 75%   |      853    |
 | max   |   123935    |
 
-Generally much shorter: Promotion (median 172, mean 257; same in SL and IS), Poetry/Lyrical (median 169, mean 265, in SL, it is "slightly shorter", in IS, it is "much longer" )
+Length in specific genres (median):
+- Promotion: 172
+- Poetry/Lyrical: 169
+- Instruction: 284
+- Information/Explanation: 320
+- News: 213
+- Opinion/Argumentation: 498
+- Legal: 606
 
-Very similar than general distribution: Instruction (median 284, mean 526; similar lengths in SL and IS but there this is longer than general distribution), Information/Explanation (median 320, mean 1153; in SL and IS this genre is slightly shorter than general length) 
+Similar length to the general length (10 words difference):
+Slightly shorter (10-100 words difference): Instruction, News
+Much shorter (more than 100 words difference): Promotion, Poetry/Lyrical
+Slightly longer (10-100 words difference): Information/Explanation
+Much longer (more than 100 words difference): Opinion/Argumentation, Legal
 
-Generally slightly shorter: News (median 213, mean 593; in SL and IS similar length but is slightly longer compared to general distribution), 
 
-Generally slightly longer: Opinion/Argumentation (median 498, mean 720; same in SL and IS)
+## MaCoCu-mk-en
 
-Generally much longer: Legal (median 606, mean 2846; same in SL, IS - there texts are still shorter than that - IS: median 345, mean 689)
+Initial no. of sentences: 478,059; no. of texts: 54,957
+
+Pre-processing:
+- discarded instances where English and Macedonian come from different domains (140,613 sentences, 14,429 texts)
+- discarded duplicated English sentences (with the same par id - 21,607 sentences, 318 texts)
+- discarded duplicated documents (100 texts) --> no. of remaining texts: 40,110
+
+Initial length of texts:
+
+|       |   en_length |
+|:------|------------:|
+| count |   40110     |
+| mean  |     194.265 |
+| std   |     426.053 |
+| min   |       1     |
+| 25%   |      36     |
+| 50%   |      94     |
+| 75%   |     210     |
+| max   |   16139     |
+
+- texts are in general longer than in other datasets, so we will not discard texts based on the median (we would lose useful texts which could change the distribution of genres). I discarded the texts with length less than 79 which is similar to the other two MaCoCu datasets (18,029 texts discarded). --> remaining no. of texts: 22,081
+- non-textual texts filtered out based on a heuristic (26 texts) -> final no. of texts: 22,055
+
+### Statistics for MaCoCu-mk-en after pre-processing
+
+English variant (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.44652   |
+| A   |    0.310905  |
+| B   |    0.188121  |
+| MIX |    0.0544548 |
+
+
+English variant (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| A   |     0.492315 |
+| MIX |     0.293448 |
+| B   |     0.200952 |
+| UNK |     0.013285 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| mk-orig |                0.587304 |
+| en-orig |                0.412696 |
+
+Average bicleaner score
+
+|       |   average_score |
+|:------|----------------:|
+| count |   22055         |
+| mean  |       0.918045  |
+| std   |       0.0546798 |
+| min   |       0.5185    |
+| 25%   |       0.892667  |
+| 50%   |       0.93      |
+| 75%   |       0.957333  |
+| max   |       0.9935    |
+
+Length of English text
+
+|       |   en_length |
+|:------|------------:|
+| count |   22055     |
+| mean  |     323.598 |
+| std   |     540.894 |
+| min   |      79     |
+| 25%   |     125     |
+| 50%   |     194     |
+| 75%   |     330     |
+| max   |   16139     |
+
+Statistics on English domains: there are 6,066 different domains.
+
+There are 26 domains which cover more than 1% of data, the domain with the largest frequency is stat.gov.mk which covers 5.7% of the data.
+
+|                                  |   Count |   Percentage |
+|:---------------------------------|--------:|-------------:|
+| stat.gov.mk (63% Information/Explanation, 36% News)                     |    1264 |   5.73113    |
+| meta.mk   (96% News)                       |    1216 |   5.51349    |
+| seeu.edu.mk    (78% News, 19% Information/Explanation)                  |     981 |   4.44797    |
+| finance.gov.mk (96% News)                  |     668 |   3.02879    |
+| ssm.org.mk   (87% News)                    |     598 |   2.7114     |
+| sobranie.mk   (65% News, 13% Information/Explanation)                   |     586 |   2.65699    |
+| loging.mk  (65% Promotion, 28% Information/Explanation)                      |     474 |   2.14917    |
+| eprints.ugd.edu.mk  (97% Information/Explanation)             |     410 |   1.85899    |
+| ckrm.org.mk (85% News)                     |     373 |   1.69123    |
+| rkmetalurg.mk  (99% News)                  |     337 |   1.528      |
+| customs.gov.mk    (85% News, 8% Legal)               |     315 |   1.42825    |
+| mcms.mk   (80% Information/Explanation, 14% News)                       |     270 |   1.22421    |
+| alkaloid.com.mk  (38% News, 37% Promotion)                |     263 |   1.19247    |
+| atamacedonia.org.mk (81% News)             |     251 |   1.13806    |
+| bujinkan.koryu.mk (44% Opinion/Argumentation, 35% News)               |     241 |   1.09272    |
+| clp.mk    (87% News)                       |     226 |   1.02471    |
+
+### Results of genre prediction on MaCoCu-mk-en
+
+Distribution of labels:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |    9695 |    43.9583   |
+| Information/Explanation |    5794 |    26.2707   |
+| Promotion               |    3336 |    15.1258   |
+| Legal                   |     875 |     3.96735  |
+| Opinion/Argumentation   |     861 |     3.90388  |
+| Instruction             |     830 |     3.76332  |
+| Other                   |     382 |     1.73203  |
+| Prose/Lyrical           |     249 |     1.129    |
+| Forum                   |      33 |     0.149626 |
+
+Post-processing:
+- discarded labels where the category is "Other" (382 labels, 1.7%) and "Forum" (33 labels, 0.2%)
+- discarded labels where prediction confidence was below 0.9 (1532 labels, 7%).
+
+Final no. of texts with predicted labels: 20,108.
+
+**Final results**
+
+Distribution of labels:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |    9225 |     45.8773  |
+| Information/Explanation |    5298 |     26.3477  |
+| Promotion               |    3140 |     15.6157  |
+| Legal                   |     775 |      3.85419 |
+| Instruction             |     718 |      3.57072 |
+| Opinion/Argumentation   |     713 |      3.54585 |
+| Prose/Lyrical           |     239 |      1.18858 |
+
+Compared to other two corpora, there is much more News (46%, versus Icelandic: 25%, Slovene: 13%, Maltese: 35%).
+
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 1; most frequent domain: bujinkan.koryu.mk (12%)
+- News: domains with more than 10%: 1; most frequent domain: meta.mk (12%)
+- Legal: domains with more than 10%: 1; most frequent domain: ustavensud.mk (12%)
+- Information/Explanation:  domains with more than 10%: 1; most frequent domain: stat.gov.mk (13%)
+- Promotion:  domains with more than 10%: 1; most frequent domain: loging.mk (10%)
+- Instruction: domains with more than 10%: 0; most frequent domain: samsung.com (7%)
+- Prose/Lyrical: domains with more than 10%: 2; most frequent domain: biblegateway (68%), mpc.org.mk (11%)
+
+
+**Distribution of English varieties in genres (doc level)**
+
+Distribution in entire corpus (document level):
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.45   |
+| A   |    0.31  |
+| B   |    0.19  |
+| MIX |    0.05 |
+
+- News: 0.29 A, 0.20 B - 2 points less A, 1 point more B --> similar distribution
+- Opinion/Argumentation: 0.36 A, 0.25 B - 5 points more A, 6 points more B --> more A, more B
+- Promotion: 0.35 A, 0.15 B - 4 points more A, 4 points less B --> similar distribution
+- Instruction: 0.32 A, 0.16 B - 1 point more A, 3 points less B --> similar distribution
+- Information/Explanation: 0.32 A, 0.17 B - 1 point more A, 2 points less B --> similar distribution
+- Legal: 0.23 A, 0.25 B - 8 points less A, 6 points more B --> more B, less A
+- Prose/Lyrical: 0.39 A, 0.22 B - 8 points more A, 3 points more B --> more A
+
+**Length of texts per genre**
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| mean  |     323.598 |
+| std   |     540.894 |
+| min   |      79     |
+| 25%   |     125     |
+| 50%   |     194     |
+| 75%   |     330     |
+| max   |   16139     |
+
+Length in terms of median:
+- News: 201
+- Opinion/Argumentation: 399
+- Promotion: 155
+- Instruction: 223
+- Information/Explanation: 172
+- Legal: 269
+- Prose/Lyrical: 432
+
+Similar length to the general length (10 words difference): News
+Slightly shorter (10-100 words difference): Promotion, Information/Explanation
+Much shorter (more than 100 words difference):
+Slightly longer (10-100 words difference): Instruction, Legal
+Much longer (more than 100 words difference): Opinion/Argumentation, Prose/Lyrical
