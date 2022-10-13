@@ -52,7 +52,10 @@ model = ClassificationModel(
 #corpus_path = "MaCoCu-mt/Macocu-mt-en-doc-format-filtered.csv"
 
 # MaCoCu-mk-en
-corpus_path = "MaCoCu-mk/Macocu-mk-en-doc-format-filtered.csv"
+#corpus_path = "MaCoCu-mk/Macocu-mk-en-doc-format-filtered.csv"
+
+# MaCoCu-tr-en
+corpus_path = "MaCoCu-tr/Macocu-tr-en-doc-format-filtered.csv"
 
 corpus_df = pd.read_csv(corpus_path, sep = "\t", index_col= 0)
 
@@ -145,6 +148,6 @@ def predict(dataframe, file_path):
 
 # Try prediction on a sample
 sample = corpus_df.sample(n=30)
-predict(sample, "MaCoCu-mk/sample-prediction-test.csv")
+predict(sample, "MaCoCu-tr/sample-prediction-test.csv")
 
-predict(corpus_df, "MaCoCu-mk/Macocu-mk-en-predicted.csv")
+predict(corpus_df, "MaCoCu-tr/Macocu-tr-en-predicted.csv")

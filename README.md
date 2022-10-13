@@ -1024,106 +1024,93 @@ Much longer (more than 100 words difference): Opinion/Argumentation, Prose/Lyric
 
 Initial no. of sentences: 10,323,996; no. of texts: 796,473
 
-
-OD TU NAPREJ!!!
-
 Pre-processing:
-- discarded instances where English and Macedonian come from different domains (140,613 sentences, 14,429 texts)
-- discarded duplicated English sentences (with the same par id - 21,607 sentences, 318 texts)
-- discarded duplicated documents (100 texts) --> no. of remaining texts: 40,110
+- discarded instances where English and Turkish come from different domains (4,619,933 sentences - 45% of all sentences!!, 330,753 texts - 42% of all texts)
+- discarded duplicated English sentences (with the same par id - 2,732,066 sentences - 48% of all sentences!, 9,942 texts - 2 % of all texts)
+- discarded duplicated documents (2133 texts) --> no. of remaining texts: 453,645
 
 Initial length of texts:
 
 |       |   en_length |
 |:------|------------:|
-| count |   40110     |
-| mean  |     194.265 |
-| std   |     426.053 |
+| count |  453645     |
+| mean  |     163.379 |
+| std   |     311.403 |
 | min   |       1     |
-| 25%   |      36     |
-| 50%   |      94     |
-| 75%   |     210     |
-| max   |   16139     |
+| 25%   |      33     |
+| 50%   |      74     |
+| 75%   |     175     |
+| max   |   26552     |
 
-- texts are in general longer than in other datasets, so we will not discard texts based on the median (we would lose useful texts which could change the distribution of genres). I discarded the texts with length less than 79 which is similar to the other two MaCoCu datasets (18,029 texts discarded). --> remaining no. of texts: 22,081
-- non-textual texts filtered out based on a heuristic (26 texts) -> final no. of texts: 22,055
+- I discarded the texts with length less than 79 which is similar to the other MaCoCu datasets (235,091 texts - 52% discarded). --> remaining no. of texts: 218,554
+- non-textual texts filtered out based on a heuristic (5,407 texts) -> final no. of texts: 213,147
 
-### Statistics for MaCoCu-mk-en after pre-processing
+### Statistics for MaCoCu-tr-en after pre-processing
 
 English variant (document level)
 
 |     |   en_var_doc |
 |:----|-------------:|
-| UNK |    0.44652   |
-| A   |    0.310905  |
-| B   |    0.188121  |
-| MIX |    0.0544548 |
+| UNK |   0.530268   |
+| A   |   0.338189   |
+| B   |   0.124989   |
+| MIX |   0.00655416 |
 
 
 English variant (domain level)
 
 |     |   en_var_dom |
 |:----|-------------:|
-| A   |     0.492315 |
-| MIX |     0.293448 |
-| B   |     0.200952 |
-| UNK |     0.013285 |
+| UNK |            1 |
+
+?!?!
 
 Translation direction
 
 |         |   translation_direction |
 |:--------|------------------------:|
-| mk-orig |                0.587304 |
-| en-orig |                0.412696 |
+| tr-orig |                0.669256 |
+| en-orig |                0.330744 |
 
 Average bicleaner score
 
 |       |   average_score |
 |:------|----------------:|
-| count |   22055         |
-| mean  |       0.918045  |
-| std   |       0.0546798 |
-| min   |       0.5185    |
-| 25%   |       0.892667  |
-| 50%   |       0.93      |
-| 75%   |       0.957333  |
-| max   |       0.9935    |
+| count |  213147         |
+| mean  |       0.867585  |
+| std   |       0.0812931 |
+| min   |       0.5       |
+| 25%   |       0.817786  |
+| 50%   |       0.879833  |
+| 75%   |       0.9305    |
+| max   |       0.9975    |
 
 Length of English text
 
 |       |   en_length |
 |:------|------------:|
-| count |   22055     |
-| mean  |     323.598 |
-| std   |     540.894 |
+| count |  213147     |
+| mean  |     303.056 |
+| std   |     410.13  |
 | min   |      79     |
-| 25%   |     125     |
-| 50%   |     194     |
-| 75%   |     330     |
-| max   |   16139     |
+| 25%   |     116     |
+| 50%   |     184     |
+| 75%   |     339     |
+| max   |   26552     |
 
-Statistics on English domains: there are 6,066 different domains.
+Statistics on English domains: there are 12,937 different domains.
 
-There are 26 domains which cover more than 1% of data, the domain with the largest frequency is stat.gov.mk which covers 5.7% of the data.
+There are 7 domains which cover more than 1% of data, the domain with the largest frequency is booking.com which covers 6.5% of the data.
 
-|                                  |   Count |   Percentage |
-|:---------------------------------|--------:|-------------:|
-| stat.gov.mk (63% Information/Explanation, 36% News)                     |    1264 |   5.73113    |
-| meta.mk   (96% News)                       |    1216 |   5.51349    |
-| seeu.edu.mk    (78% News, 19% Information/Explanation)                  |     981 |   4.44797    |
-| finance.gov.mk (96% News)                  |     668 |   3.02879    |
-| ssm.org.mk   (87% News)                    |     598 |   2.7114     |
-| sobranie.mk   (65% News, 13% Information/Explanation)                   |     586 |   2.65699    |
-| loging.mk  (65% Promotion, 28% Information/Explanation)                      |     474 |   2.14917    |
-| eprints.ugd.edu.mk  (97% Information/Explanation)             |     410 |   1.85899    |
-| ckrm.org.mk (85% News)                     |     373 |   1.69123    |
-| rkmetalurg.mk  (99% News)                  |     337 |   1.528      |
-| customs.gov.mk    (85% News, 8% Legal)               |     315 |   1.42825    |
-| mcms.mk   (80% Information/Explanation, 14% News)                       |     270 |   1.22421    |
-| alkaloid.com.mk  (38% News, 37% Promotion)                |     263 |   1.19247    |
-| atamacedonia.org.mk (81% News)             |     251 |   1.13806    |
-| bujinkan.koryu.mk (44% Opinion/Argumentation, 35% News)               |     241 |   1.09272    |
-| clp.mk    (87% News)                       |     226 |   1.02471    |
+|                                                    |   Count |   Percentage |
+|:---------------------------------------------------|--------:|-------------:|
+| booking.com                                        |   13928 |   6.53446    |
+| support.apple.com                                  |    6443 |   3.0228     |
+| debis.deu.edu.tr                                   |    3390 |   1.59045    |
+| atilim.edu.tr                                      |    2292 |   1.07531    |
+| dergipark.org.tr                                   |    2283 |   1.07109    |
+| yandex.com.tr                                      |    2180 |   1.02277    |
+| ninova.itu.edu.tr                                  |    2166 |   1.0162     |
 
 ### Results of genre prediction on MaCoCu-mk-en
 
