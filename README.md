@@ -1019,3 +1019,205 @@ Slightly shorter (10-100 words difference): Promotion, Information/Explanation
 Much shorter (more than 100 words difference):
 Slightly longer (10-100 words difference): Instruction, Legal
 Much longer (more than 100 words difference): Opinion/Argumentation, Prose/Lyrical
+
+## MaCoCu-tr-en
+
+Initial no. of sentences: 10,323,996; no. of texts: 796,473
+
+
+OD TU NAPREJ!!!
+
+Pre-processing:
+- discarded instances where English and Macedonian come from different domains (140,613 sentences, 14,429 texts)
+- discarded duplicated English sentences (with the same par id - 21,607 sentences, 318 texts)
+- discarded duplicated documents (100 texts) --> no. of remaining texts: 40,110
+
+Initial length of texts:
+
+|       |   en_length |
+|:------|------------:|
+| count |   40110     |
+| mean  |     194.265 |
+| std   |     426.053 |
+| min   |       1     |
+| 25%   |      36     |
+| 50%   |      94     |
+| 75%   |     210     |
+| max   |   16139     |
+
+- texts are in general longer than in other datasets, so we will not discard texts based on the median (we would lose useful texts which could change the distribution of genres). I discarded the texts with length less than 79 which is similar to the other two MaCoCu datasets (18,029 texts discarded). --> remaining no. of texts: 22,081
+- non-textual texts filtered out based on a heuristic (26 texts) -> final no. of texts: 22,055
+
+### Statistics for MaCoCu-mk-en after pre-processing
+
+English variant (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.44652   |
+| A   |    0.310905  |
+| B   |    0.188121  |
+| MIX |    0.0544548 |
+
+
+English variant (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| A   |     0.492315 |
+| MIX |     0.293448 |
+| B   |     0.200952 |
+| UNK |     0.013285 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| mk-orig |                0.587304 |
+| en-orig |                0.412696 |
+
+Average bicleaner score
+
+|       |   average_score |
+|:------|----------------:|
+| count |   22055         |
+| mean  |       0.918045  |
+| std   |       0.0546798 |
+| min   |       0.5185    |
+| 25%   |       0.892667  |
+| 50%   |       0.93      |
+| 75%   |       0.957333  |
+| max   |       0.9935    |
+
+Length of English text
+
+|       |   en_length |
+|:------|------------:|
+| count |   22055     |
+| mean  |     323.598 |
+| std   |     540.894 |
+| min   |      79     |
+| 25%   |     125     |
+| 50%   |     194     |
+| 75%   |     330     |
+| max   |   16139     |
+
+Statistics on English domains: there are 6,066 different domains.
+
+There are 26 domains which cover more than 1% of data, the domain with the largest frequency is stat.gov.mk which covers 5.7% of the data.
+
+|                                  |   Count |   Percentage |
+|:---------------------------------|--------:|-------------:|
+| stat.gov.mk (63% Information/Explanation, 36% News)                     |    1264 |   5.73113    |
+| meta.mk   (96% News)                       |    1216 |   5.51349    |
+| seeu.edu.mk    (78% News, 19% Information/Explanation)                  |     981 |   4.44797    |
+| finance.gov.mk (96% News)                  |     668 |   3.02879    |
+| ssm.org.mk   (87% News)                    |     598 |   2.7114     |
+| sobranie.mk   (65% News, 13% Information/Explanation)                   |     586 |   2.65699    |
+| loging.mk  (65% Promotion, 28% Information/Explanation)                      |     474 |   2.14917    |
+| eprints.ugd.edu.mk  (97% Information/Explanation)             |     410 |   1.85899    |
+| ckrm.org.mk (85% News)                     |     373 |   1.69123    |
+| rkmetalurg.mk  (99% News)                  |     337 |   1.528      |
+| customs.gov.mk    (85% News, 8% Legal)               |     315 |   1.42825    |
+| mcms.mk   (80% Information/Explanation, 14% News)                       |     270 |   1.22421    |
+| alkaloid.com.mk  (38% News, 37% Promotion)                |     263 |   1.19247    |
+| atamacedonia.org.mk (81% News)             |     251 |   1.13806    |
+| bujinkan.koryu.mk (44% Opinion/Argumentation, 35% News)               |     241 |   1.09272    |
+| clp.mk    (87% News)                       |     226 |   1.02471    |
+
+### Results of genre prediction on MaCoCu-mk-en
+
+Distribution of labels:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |    9695 |    43.9583   |
+| Information/Explanation |    5794 |    26.2707   |
+| Promotion               |    3336 |    15.1258   |
+| Legal                   |     875 |     3.96735  |
+| Opinion/Argumentation   |     861 |     3.90388  |
+| Instruction             |     830 |     3.76332  |
+| Other                   |     382 |     1.73203  |
+| Prose/Lyrical           |     249 |     1.129    |
+| Forum                   |      33 |     0.149626 |
+
+Post-processing:
+- discarded labels where the category is "Other" (382 labels, 1.7%) and "Forum" (33 labels, 0.2%)
+- discarded labels where prediction confidence was below 0.9 (1532 labels, 7%).
+
+Final no. of texts with predicted labels: 20,108.
+
+**Final results**
+
+Distribution of labels:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |    9225 |     45.8773  |
+| Information/Explanation |    5298 |     26.3477  |
+| Promotion               |    3140 |     15.6157  |
+| Legal                   |     775 |      3.85419 |
+| Instruction             |     718 |      3.57072 |
+| Opinion/Argumentation   |     713 |      3.54585 |
+| Prose/Lyrical           |     239 |      1.18858 |
+
+Compared to other two corpora, there is much more News (46%, versus Icelandic: 25%, Slovene: 13%, Maltese: 35%).
+
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 1; most frequent domain: bujinkan.koryu.mk (12%)
+- News: domains with more than 10%: 1; most frequent domain: meta.mk (12%)
+- Legal: domains with more than 10%: 1; most frequent domain: ustavensud.mk (12%)
+- Information/Explanation:  domains with more than 10%: 1; most frequent domain: stat.gov.mk (13%)
+- Promotion:  domains with more than 10%: 1; most frequent domain: loging.mk (10%)
+- Instruction: domains with more than 10%: 0; most frequent domain: samsung.com (7%)
+- Prose/Lyrical: domains with more than 10%: 2; most frequent domain: biblegateway (68%), mpc.org.mk (11%)
+
+
+**Distribution of English varieties in genres (doc level)**
+
+Distribution in entire corpus (document level):
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.45   |
+| A   |    0.31  |
+| B   |    0.19  |
+| MIX |    0.05 |
+
+- News: 0.29 A, 0.20 B - 2 points less A, 1 point more B --> similar distribution
+- Opinion/Argumentation: 0.36 A, 0.25 B - 5 points more A, 6 points more B --> more A, more B
+- Promotion: 0.35 A, 0.15 B - 4 points more A, 4 points less B --> similar distribution
+- Instruction: 0.32 A, 0.16 B - 1 point more A, 3 points less B --> similar distribution
+- Information/Explanation: 0.32 A, 0.17 B - 1 point more A, 2 points less B --> similar distribution
+- Legal: 0.23 A, 0.25 B - 8 points less A, 6 points more B --> more B, less A
+- Prose/Lyrical: 0.39 A, 0.22 B - 8 points more A, 3 points more B --> more A
+
+**Length of texts per genre**
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| mean  |     323.598 |
+| std   |     540.894 |
+| min   |      79     |
+| 25%   |     125     |
+| 50%   |     194     |
+| 75%   |     330     |
+| max   |   16139     |
+
+Length in terms of median:
+- News: 201
+- Opinion/Argumentation: 399
+- Promotion: 155
+- Instruction: 223
+- Information/Explanation: 172
+- Legal: 269
+- Prose/Lyrical: 432
+
+Similar length to the general length (10 words difference): News
+Slightly shorter (10-100 words difference): Promotion, Information/Explanation
+Much shorter (more than 100 words difference):
+Slightly longer (10-100 words difference): Instruction, Legal
+Much longer (more than 100 words difference): Opinion/Argumentation, Prose/Lyrical
