@@ -1,3 +1,31 @@
+# Open the CSV file
+
+# MaCoCu-sl-en
+#corpus_path = "Macocu-sl-en-doc-format-filtered.csv"
+
+# MaCoCu-is-en
+#corpus_path = "MaCoCu-is/Macocu-is-en-doc-format.csv"
+
+# MaCoCu-mt-en
+#corpus_path = "MaCoCu-mt/Macocu-mt-en-doc-format-filtered.csv"
+
+# MaCoCu-mk-en
+#corpus_path = "MaCoCu-mk/Macocu-mk-en-doc-format-filtered.csv"
+
+# MaCoCu-tr-en
+#corpus_path = "MaCoCu-tr/Macocu-tr-en-doc-format-filtered.csv"
+
+# MaCoCu-bg
+corpus_path = "MaCoCu-bg/Macocu-bg-en-doc-format-filtered.csv"
+
+# Define the path to sample prediction:
+sample_path = "MaCoCu-bg/sample-prediction-test.csv"
+
+# Define the path to the file with predictions:
+predictions_path = "MaCoCu-bg/Macocu-bg-en-predicted.csv"
+
+# --------------------------------------------------------------------
+
 # install the libraries necessary for data wrangling, prediction and result analysis
 import json
 import numpy as np
@@ -39,23 +67,6 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # Loading a local save
 model = ClassificationModel(
     "xlmroberta", "artifacts/X-GENRE-classifier:v0/")
-
-# Open csv file
-
-# MaCoCu-sl-en
-#corpus_path = "Macocu-sl-en-doc-format-filtered.csv"
-
-# MaCoCu-is-en
-#corpus_path = "MaCoCu-is/Macocu-is-en-doc-format.csv"
-
-# MaCoCu-mt-en
-#corpus_path = "MaCoCu-mt/Macocu-mt-en-doc-format-filtered.csv"
-
-# MaCoCu-mk-en
-#corpus_path = "MaCoCu-mk/Macocu-mk-en-doc-format-filtered.csv"
-
-# MaCoCu-tr-en
-corpus_path = "MaCoCu-tr/Macocu-tr-en-doc-format-filtered.csv"
 
 corpus_df = pd.read_csv(corpus_path, sep = "\t", index_col= 0)
 
@@ -148,6 +159,6 @@ def predict(dataframe, file_path):
 
 # Try prediction on a sample
 sample = corpus_df.sample(n=30)
-predict(sample, "MaCoCu-tr/sample-prediction-test.csv")
+predict(sample, "{}".format(sample_path))
 
-predict(corpus_df, "MaCoCu-tr/Macocu-tr-en-predicted.csv")
+predict(corpus_df, "{}".format(predictions_path))

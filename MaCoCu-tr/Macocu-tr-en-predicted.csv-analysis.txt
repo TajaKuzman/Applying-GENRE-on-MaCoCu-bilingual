@@ -1,0 +1,328 @@
+Analysis of results for file: MaCoCu-tr/Macocu-tr-en-predicted.csv
+
+Distribution of genres in the most frequent domains:
+
+
+
+booking.com
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Promotion               |     0.916714    |
+| Instruction             |     0.081679    |
+| News                    |     0.000756287 |
+| Legal                   |     0.000472679 |
+| Information/Explanation |     0.000283607 |
+| Opinion/Argumentation   |     9.45358e-05 |
+
+support.apple.com
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Instruction             |     0.928908    |
+| Information/Explanation |     0.0588512   |
+| Promotion               |     0.00910232  |
+| News                    |     0.00235405  |
+| Legal                   |     0.000784683 |
+
+debis.deu.edu.tr
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Information/Explanation |     0.965669    |
+| Instruction             |     0.0151181   |
+| Promotion               |     0.0138583   |
+| Legal                   |     0.00409449  |
+| News                    |     0.000944882 |
+| Opinion/Argumentation   |     0.000314961 |
+
+atilim.edu.tr
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Information/Explanation |       0.783302  |
+| News                    |       0.0802064 |
+| Promotion               |       0.0675422 |
+| Instruction             |       0.043621  |
+| Legal                   |       0.022045  |
+| Opinion/Argumentation   |       0.0032833 |
+
+dergipark.org.tr
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Information/Explanation |     0.634398    |
+| Legal                   |     0.324718    |
+| Instruction             |     0.0347744   |
+| Promotion               |     0.00281955  |
+| News                    |     0.00281955  |
+| Opinion/Argumentation   |     0.000469925 |
+
+yandex.com.tr
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Information/Explanation |     0.97026     |
+| Instruction             |     0.0144052   |
+| News                    |     0.00975836  |
+| Legal                   |     0.00232342  |
+| Promotion               |     0.00139405  |
+| Prose/Lyrical           |     0.000929368 |
+| Opinion/Argumentation   |     0.000929368 |
+
+ninova.itu.edu.tr
+
+|                         |   final-X-GENRE |
+|:------------------------|----------------:|
+| Information/Explanation |      0.988268   |
+| Promotion               |      0.00750821 |
+| Instruction             |      0.00422337 |
+
+Distribution of domains in genres:
+
+
+
+Opinion/Argumentation
+
+|                 |   en_domain |
+|:----------------|------------:|
+| raillife.com.tr |   0.0720472 |
+| tepav.org.tr    |   0.030315  |
+| agos.com.tr     |   0.0291339 |
+| wsws.org        |   0.0279528 |
+| ortaformat.org  |   0.0244094 |
+
+News
+
+|                |   en_domain |
+|:---------------|------------:|
+| bbc.com        |   0.0563494 |
+| agos.com.tr    |   0.0258571 |
+| eurotopics.net |   0.0222946 |
+| avim.org.tr    |   0.0216434 |
+| aa.com.tr      |   0.0202643 |
+
+Legal
+
+|                   |   en_domain |
+|:------------------|------------:|
+| dergipark.org.tr  |  0.11223    |
+| apps.apple.com    |  0.0802339  |
+| erdem-erdem.av.tr |  0.0761735  |
+| cottgroup.com     |  0.0445022  |
+| aydin.edu.tr      |  0.00925776 |
+
+Information/Explanation
+
+|                    |   en_domain |
+|:-------------------|------------:|
+| debis.deu.edu.tr   |   0.0569804 |
+| ninova.itu.edu.tr  |   0.0391392 |
+| yandex.com.tr      |   0.0388046 |
+| gbs.gelisim.edu.tr |   0.0358497 |
+| atilim.edu.tr      |   0.0310363 |
+
+Promotion
+
+|                   |   en_domain |
+|:------------------|------------:|
+| booking.com       |   0.13171   |
+| hotels-hr.com     |   0.0169102 |
+| yapikatalogu.com  |   0.0160545 |
+| hotels-veneto.com |   0.0154977 |
+| asus.com          |   0.0129306 |
+
+Instruction
+
+|                   |   en_domain |
+|:------------------|------------:|
+| support.apple.com |   0.189475  |
+| vivi.com.tr       |   0.048337  |
+| dlldownloader.com |   0.0430872 |
+| solvusoft.com     |   0.0363648 |
+| booking.com       |   0.0276577 |
+
+Prose/Lyrical
+
+|                     |   en_domain |
+|:--------------------|------------:|
+| imanilmihali.com    |   0.213592  |
+| islaminquran.com    |   0.0647249 |
+| goygoycu.net        |   0.0582524 |
+| raillife.com.tr     |   0.0550162 |
+| sarkisozleri.bbs.tr |   0.0485437 |
+
+Distribution of English varieties in genres:
+
+
+
+News
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |   0.558399   |
+| A   |   0.288067   |
+| B   |   0.150124   |
+| MIX |   0.00340931 |
+
+Opinion/Argumentation
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.516535  |
+| A   |    0.381102  |
+| B   |    0.0885827 |
+| MIX |    0.0137795 |
+
+Promotion
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |   0.388583   |
+| A   |   0.377282   |
+| B   |   0.224533   |
+| MIX |   0.00960285 |
+
+Instruction
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |   0.691187   |
+| A   |   0.248728   |
+| B   |   0.0565639  |
+| MIX |   0.00352124 |
+
+Information/Explanation
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |   0.652635   |
+| A   |   0.300755   |
+| B   |   0.0418339  |
+| MIX |   0.00477624 |
+
+Legal
+
+|     |   en_var_doc |
+|:----|-------------:|
+| A   |    0.481891  |
+| UNK |    0.420984  |
+| B   |    0.0862433 |
+| MIX |    0.0108819 |
+
+Prose/Lyrical
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.459547  |
+| A   |    0.430421  |
+| MIX |    0.0776699 |
+| B   |    0.0323625 |
+
+Length distribution of the entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| count |  213147     |
+| mean  |     303.056 |
+| std   |     410.13  |
+| min   |      79     |
+| 25%   |     116     |
+| 50%   |     184     |
+| 75%   |     339     |
+| max   |   26552     |
+
+Length distribution for each of the genre subcorpus:
+
+
+
+News
+
+|       |   en_length |
+|:------|------------:|
+| count |   26105     |
+| mean  |     301.428 |
+| std   |     380.422 |
+| min   |      79     |
+| 25%   |     123     |
+| 50%   |     198     |
+| 75%   |     343     |
+| max   |   22011     |
+
+Opinion/Argumentation
+
+|       |   en_length |
+|:------|------------:|
+| count |    2540     |
+| mean  |     338.62  |
+| std   |     465.595 |
+| min   |      79     |
+| 25%   |     124.75  |
+| 50%   |     199     |
+| 75%   |     364     |
+| max   |    7459     |
+
+Promotion
+
+|       |   en_length |
+|:------|------------:|
+| count |   73624     |
+| mean  |     275.333 |
+| std   |     281.98  |
+| min   |      79     |
+| 25%   |     115     |
+| 50%   |     180     |
+| 75%   |     318     |
+| max   |    9884     |
+
+Instruction
+
+|       |   en_length |
+|:------|------------:|
+| count |   31239     |
+| mean  |     376.382 |
+| std   |     423.008 |
+| min   |      79     |
+| 25%   |     134     |
+| 50%   |     244     |
+| 75%   |     466     |
+| max   |   23156     |
+
+Information/Explanation
+
+|       |   en_length |
+|:------|------------:|
+| count |   53808     |
+| mean  |     237.003 |
+| std   |     312.088 |
+| min   |      79     |
+| 25%   |     106     |
+| 50%   |     149     |
+| 75%   |     246     |
+| max   |   17422     |
+
+Legal
+
+|       |   en_length |
+|:------|------------:|
+| count |    6157     |
+| mean  |     644.313 |
+| std   |    1197.85  |
+| min   |      79     |
+| 25%   |     147     |
+| 50%   |     310     |
+| 75%   |     708     |
+| max   |   24317     |
+
+Prose/Lyrical
+
+|       |   en_length |
+|:------|------------:|
+| count |     309     |
+| mean  |     671.239 |
+| std   |    1250.04  |
+| min   |      79     |
+| 25%   |     117     |
+| 50%   |     205     |
+| 75%   |     583     |
+| max   |    9262     |

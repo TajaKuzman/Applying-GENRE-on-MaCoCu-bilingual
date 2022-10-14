@@ -22,24 +22,23 @@ Sizes of datasets:
 
 ## Steps
 
-1. Copy the notebooks 1-, 2- and 5- from the root folder (or ones of the folders from other parallel corpora) to a folder dedicated to the new parallel corpus. While running code, change the cells accordingly to the new language code.
-2. Convert TMX file to JSON, open JSON as a dataframe: 1-Bitextor-TMX-to-JSON.ipynb
-3. Pre-process data, save the document-based file as CSV: 2-JSON-sentence-file-to-doc-format.ipynb; add information on the discarded texts and general statistics of the corpus to the README
-4. Apply genre prediction to the file: change the file path in predict_genres.py and run the code in the terminal: ```nohup python predict_genres.py```
-5. Post-process the data and analyse the results; add information on the results to the README: 5-Post-processing-of-predicted-data-and-analysis.ipynb
+1. Copy the notebook "Complete-Pipeline.ipynb" from the root folder to a folder dedicated to the new parallel corpus.
+2. Convert TMX file to JSON and pre-process data by runing the Complete-Pipeline.ipynb notebook; add information on the discarded texts and general statistics of the corpus to the README.
+4. Apply genre prediction to the file: define the file path in predict_genres.py and run the code in the terminal: ```nohup python predict_genres.py```
+5. Post-process the data and analyse the results by using the notebook "Complete-Pipeline.ipynb"; add information on the results to the README.
 
 ## Preparation of the data
 
 Steps:
-- converted TMX file to JSON file, opened JSON as a dataframe (*1-Bitextor-TMX-to-JSON.ipynb)*
-- sorted all sentences based on the English source and then English sentence id to get the correct order of sentences (from here onwards: *2-JSON-sentence-file-to-doc-format.ipynb*)
+- converted TMX file to JSON file, opened JSON as a dataframe
+- sorted all sentences based on the English source and then English sentence id to get the correct order of sentences
 - discarded sentences where English text and text in other language come from different domains to assure that English documents are connected with the national domain in interest (appear in Slovene, Maltese etc. web)
 - discarded duplicated English sentences with the same par id (they exist because one English sentence was shown to be alligned to more than one sentence in another language from different documents - discarding duplicated sentences assures that there are no duplicates in English text, however it can destroy the structure of texts in the other language. We are only interested in English texts in this preparation of data.)
 - merged all sentences into English and Slovene/Maltese/etc. documents (based on the English source (web page URL) and Slovene/Maltese/etc. source (URL) each)
 - converted the dataframe where each sentence is one row into a dataframe where each document is one row (by discarding duplicated English documents)
-- discarded documents that have less than the median no. of words (English length) - less than 75 for Slovene, 79 for Maltese and Icelandic
-- discarded documents that have punctuation per no. of words ratio less than 0.015 or more than 0.2 (non-textual documents) (see notebook *2.1-Filtering-non-textual.ipynb*)
-- saved the document format to CSV: Macocu-sl-en-doc-format-filtered.csv
+- discarded documents that have less than the median no. of words (English length) - less than 75 for Slovene, 79 for all other
+- discarded documents that have punctuation per no. of words ratio less than 0.015 or more than 0.2 (non-textual documents)
+- saved the document format to CSV
 
 Analysis showed that all sentences from the original TMX file have bicleaner score higher than 0.50 - bad sentences must have been cleaned out before.
 
@@ -1104,51 +1103,250 @@ There are 7 domains which cover more than 1% of data, the domain with the larges
 
 |                                                    |   Count |   Percentage |
 |:---------------------------------------------------|--------:|-------------:|
-| booking.com                                        |   13928 |   6.53446    |
-| support.apple.com                                  |    6443 |   3.0228     |
-| debis.deu.edu.tr                                   |    3390 |   1.59045    |
-| atilim.edu.tr                                      |    2292 |   1.07531    |
-| dergipark.org.tr                                   |    2283 |   1.07109    |
-| yandex.com.tr                                      |    2180 |   1.02277    |
-| ninova.itu.edu.tr                                  |    2166 |   1.0162     |
+| booking.com  (92% Promotion)                                      |   13928 |   6.53446    |
+| support.apple.com   (93% Instruction)                               |    6443 |   3.0228     |
+| debis.deu.edu.tr (97% Information/Explanation)                                  |    3390 |   1.59045    |
+| atilim.edu.tr  (78% Information/Explanation, 8% News)                                    |    2292 |   1.07531    |
+| dergipark.org.tr  (63% Information/Explanation, 32% Legal)                                 |    2283 |   1.07109    |
+| yandex.com.tr  (97% Information/Explanation)                                    |    2180 |   1.02277    |
+| ninova.itu.edu.tr   (99% Information/Explanation)                               |    2166 |   1.0162     |
 
-### Results of genre prediction on MaCoCu-mk-en
+### Results of genre prediction on MaCoCu-tr-en
 
-Distribution of labels:
+As this is by far the largest corpus, the prediction took much longer: almost 21 hours.
+
+Distribution of labels before post-processing
 
 |                         |   Count |   Percentage |
 |:------------------------|--------:|-------------:|
-| News                    |    9695 |    43.9583   |
-| Information/Explanation |    5794 |    26.2707   |
-| Promotion               |    3336 |    15.1258   |
-| Legal                   |     875 |     3.96735  |
-| Opinion/Argumentation   |     861 |     3.90388  |
-| Instruction             |     830 |     3.76332  |
-| Other                   |     382 |     1.73203  |
-| Prose/Lyrical           |     249 |     1.129    |
-| Forum                   |      33 |     0.149626 |
+| Promotion               |   77954 |    36.5729   |
+| Information/Explanation |   56954 |    26.7205   |
+| Instruction             |   34483 |    16.178    |
+| News                    |   28021 |    13.1463   |
+| Legal                   |    7054 |     3.30945  |
+| Other                   |    3496 |     1.64018  |
+| Opinion/Argumentation   |    3211 |     1.50647  |
+| Forum                   |    1589 |     0.745495 |
+| Prose/Lyrical           |     385 |     0.180627 |
 
 Post-processing:
-- discarded labels where the category is "Other" (382 labels, 1.7%) and "Forum" (33 labels, 0.2%)
-- discarded labels where prediction confidence was below 0.9 (1532 labels, 7%).
+- discarded labels where the category is "Other" (3496 labels, 1.6%) and "Forum" (1589 labels, 0.75%)
+- discarded labels where prediction confidence was below 0.9 (14,280 labels, 7%).
 
-Final no. of texts with predicted labels: 20,108.
+Total number of labels discarded due to post-processing: 19,365, percentage: 9%
+
+Final no. of texts with predicted labels: 193,782.
 
 **Final results**
 
-Distribution of labels:
+Final genre distribution:
 
 |                         |   Count |   Percentage |
 |:------------------------|--------:|-------------:|
-| News                    |    9225 |     45.8773  |
-| Information/Explanation |    5298 |     26.3477  |
-| Promotion               |    3140 |     15.6157  |
-| Legal                   |     775 |      3.85419 |
-| Instruction             |     718 |      3.57072 |
-| Opinion/Argumentation   |     713 |      3.54585 |
-| Prose/Lyrical           |     239 |      1.18858 |
+| Promotion               |   73624 |    37.9932   |
+| Information/Explanation |   53808 |    27.7673   |
+| Instruction             |   31239 |    16.1207   |
+| News                    |   26105 |    13.4713   |
+| Legal                   |    6157 |     3.17728  |
+| Opinion/Argumentation   |    2540 |     1.31075  |
+| Prose/Lyrical           |     309 |     0.159458 |
 
-Compared to other two corpora, there is much more News (46%, versus Icelandic: 25%, Slovene: 13%, Maltese: 35%).
+
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 0; most frequent domain: raillife.com.tr(7%)
+- News: domains with more than 10%: 0; most frequent domain: bbc.com (6%)
+- Legal: domains with more than 10%: 1; most frequent domain: dergipark.org.tr (11%)
+- Information/Explanation:  domains with more than 10%: 0; most frequent domain: debis.deu.edu.tr (6%)
+- Promotion:  domains with more than 10%: 1; most frequent domain: booking.com (13%)
+- Instruction: domains with more than 10%: 1; most frequent domain: support.apple.com (19%)
+- Prose/Lyrical: domains with more than 10%: 1; most frequent domain: imanilmihali.com (21%) (Islam page)
+
+
+**Distribution of English varieties in genres (doc level)**
+
+Distribution in entire corpus (document level):
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |   0.53   |
+| A   |   0.34   |
+| B   |   0.12   |
+| MIX |   0.01 |
+
+- News: 0.29 A, 0.15 B; 5 point less A, 3 points more B --> less A
+- Opinion/Argumentation: 0.38 A, 0.09 B; 4 points more A, 3 points less B --> similar distribution
+- Promotion: 0.38 A, 0.22 B; 4 points more A, 10 points more B --> more B
+- Instruction: 0.25 A, 0.06 B; 9 points less A, 6 points less B --> less A, less B
+- Information/Explanation: 0.30 A, 0.04 B; 4 points less A, 8 points less B --> less B
+- Legal: 0.48 A, 0.09 B; 14 points more A, 3 points less B --> more A
+- Prose/Lyrical: 0.43 A, 0.03 B; 9 points more A, 9 points less B --> more A, less B
+
+**Length of texts per genre**
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| count |  213147     |
+| mean  |     303.056 |
+| std   |     410.13  |
+| min   |      79     |
+| 25%   |     116     |
+| 50%   |     184     |
+| 75%   |     339     |
+| max   |   26552     |
+
+Length in terms of median:
+- News: 198
+- Opinion/Argumentation: 199
+- Promotion: 180
+- Instruction: 244
+- Information/Explanation: 149
+- Legal: 310
+- Prose/Lyrical: 205
+
+Similar length to the general length (10 words difference): Promotion
+Slightly shorter (10-100 words difference): Information/Explanation
+Much shorter (more than 100 words difference):
+Slightly longer (10-100 words difference): News, Opinion/Argumentation, Instruction, Prose/Lyrical
+Much longer (more than 100 words difference): Legal
+
+## MaCoCu-bg-en
+
+Initial no. of sentences: 3,857,653; no. of texts: 287,456
+
+Pre-processing:
+- discarded instances where English and Bulgarian come from different domains (1,498,549 sentences - 39% of all sentences, 71,802 texts - 25% of all texts)
+- discarded duplicated English sentences (with the same par id - 585,333 sentences - 25% of all sentences, 2,395 texts - 1% of all texts)
+- discarded duplicated documents (1,058 texts) --> no. of remaining texts: 212,201
+
+Initial length of texts:
+
+|       |   en_length |
+|:------|------------:|
+| count |  212201     |
+| mean  |     173.37  |
+| std   |     414.393 |
+| min   |       2     |
+| 25%   |      38     |
+| 50%   |      81     |
+| 75%   |     174     |
+| max   |   68422     |
+
+- I discarded the texts with length less than 79 which is similar to the other MaCoCu datasets (102,579 texts - 48% discarded). --> remaining no. of texts: 109,622
+- non-textual texts filtered out based on a heuristic (2,218 texts) -> final no. of texts: 107,404
+
+
+### Statistics for MaCoCu-bg-en after pre-processing
+
+English variant (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| UNK |    0.427666  |
+| A   |    0.32874   |
+| B   |    0.178755  |
+| MIX |    0.0648393 |
+
+
+English variant (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| A   |   0.402918   |
+| B   |   0.304793   |
+| MIX |   0.282885   |
+| UNK |   0.00940375 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| bg-orig |                0.538602 |
+| en-orig |                0.461398 |
+
+Average bicleaner score
+
+|       |   average_score |
+|:------|----------------:|
+| count |  107404         |
+| mean  |       0.890131  |
+| std   |       0.0727416 |
+| min   |       0.5025    |
+| 25%   |       0.847292  |
+| 50%   |       0.91      |
+| 75%   |       0.9463    |
+| max   |       0.99225   |
+
+Length of English text
+
+|       |   en_length |
+|:------|------------:|
+| count |  107404     |
+| mean  |     301.515 |
+| std   |     552.041 |
+| min   |      79     |
+| 25%   |     107     |
+| 50%   |     170     |
+| 75%   |     318     |
+| max   |   68422     |
+
+Statistics on English domains: there are 5,362 different domains.
+
+There are 7 domains which cover more than 1% of data, the domain with the largest frequency is goldenpages.bg which covers 12% of the data.
+
+|                        |   Count |   Percentage |
+|:-----------------------|--------:|-------------:|
+| goldenpages.bg         |   13020 |    12.1225   |
+| rooms.bg               |    3951 |     3.67863  |
+| drehi.bg               |    3465 |     3.22614  |
+| mirela.bg              |    2279 |     2.12189  |
+| vikiwat.com            |    1596 |     1.48598  |
+| campingrocks.bg        |    1108 |     1.03162  |
+| bivol.bg               |    1088 |     1.013    |
+
+
+### Results of genre prediction on MaCoCu-bg-en
+
+OD TU NAPREJ!!!
+
+Distribution of labels before post-processing
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| Promotion               |   77954 |    36.5729   |
+| Information/Explanation |   56954 |    26.7205   |
+| Instruction             |   34483 |    16.178    |
+| News                    |   28021 |    13.1463   |
+| Legal                   |    7054 |     3.30945  |
+| Other                   |    3496 |     1.64018  |
+| Opinion/Argumentation   |    3211 |     1.50647  |
+| Forum                   |    1589 |     0.745495 |
+| Prose/Lyrical           |     385 |     0.180627 |
+
+Post-processing:
+- discarded labels where the category is "Other" (3496 labels, 1.6%) and "Forum" (1589 labels, 0.75%)
+- discarded labels where prediction confidence was below 0.9 (14,280 labels, 7%).
+
+Total number of labels discarded due to post-processing: 19,365, percentage: 9%
+
+Final no. of texts with predicted labels: 193,782.
+
+**Final results**
+
+Final genre distribution:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| Promotion               |   73624 |    37.9932   |
+| Information/Explanation |   53808 |    27.7673   |
+| Instruction             |   31239 |    16.1207   |
+| News                    |   26105 |    13.4713   |
+| Legal                   |    6157 |     3.17728  |
+| Opinion/Argumentation   |    2540 |     1.31075  |
+| Prose/Lyrical           |     309 |     0.159458 |
+
 
 **Distribution of domains in genres**
 

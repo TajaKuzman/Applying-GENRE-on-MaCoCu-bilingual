@@ -24,3 +24,12 @@ MaCoCu-tr/MaCoCu-tr-en.tmx
 MaCoCu-tr/Macocu-tr-en.json
 6-Simplified-code.ipynb
 MaCoCu-tr/Macocu-tr-en-doc-format-filtered.csv
+MaCoCu-bg/Macocu-bg-en-doc-format-filtered.csv
+MaCoCu-is/MaCoCu-is-en.json
+MaCoCu-sl/MaCoCu-sl-en-predicted-sample-manual-analysis.csv
+.gitignore
+.gitignore
+MaCoCu-tr/Macocu-tr-en-predicted.csv
+.gitignore
+.gitignore
+MaCoCu-tr/Macocu-tr-en-predicted.csv-post-processed.csv
