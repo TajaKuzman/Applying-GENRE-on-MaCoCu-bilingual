@@ -1298,40 +1298,39 @@ There are 7 domains which cover more than 1% of data, the domain with the larges
 
 |                        |   Count |   Percentage |
 |:-----------------------|--------:|-------------:|
-| goldenpages.bg         |   13020 |    12.1225   |
-| rooms.bg               |    3951 |     3.67863  |
-| drehi.bg               |    3465 |     3.22614  |
-| mirela.bg              |    2279 |     2.12189  |
-| vikiwat.com            |    1596 |     1.48598  |
-| campingrocks.bg        |    1108 |     1.03162  |
-| bivol.bg               |    1088 |     1.013    |
+| goldenpages.bg (87% Opinion/Argumentation)         |   13020 |    12.1225   |
+| rooms.bg (92% Promotion)              |    3951 |     3.67863  |
+| drehi.bg  (92% Promotion)             |    3465 |     3.22614  |
+| mirela.bg (97% Information/Explanation)             |    2279 |     2.12189  |
+| vikiwat.com (50% Information/Explanation, 47% Promotion)           |    1596 |     1.48598  |
+| campingrocks.bg (98% Promotion)       |    1108 |     1.03162  |
+| bivol.bg  (82% News)             |    1088 |     1.013    |
 
 
 ### Results of genre prediction on MaCoCu-bg-en
-
-OD TU NAPREJ!!!
 
 Distribution of labels before post-processing
 
 |                         |   Count |   Percentage |
 |:------------------------|--------:|-------------:|
-| Promotion               |   77954 |    36.5729   |
-| Information/Explanation |   56954 |    26.7205   |
-| Instruction             |   34483 |    16.178    |
-| News                    |   28021 |    13.1463   |
-| Legal                   |    7054 |     3.30945  |
-| Other                   |    3496 |     1.64018  |
-| Opinion/Argumentation   |    3211 |     1.50647  |
-| Forum                   |    1589 |     0.745495 |
-| Prose/Lyrical           |     385 |     0.180627 |
+| Promotion               |   36397 |    33.8879   |
+| Information/Explanation |   22651 |    21.0895   |
+| News                    |   18278 |    17.018    |
+| Other                   |    9860 |     9.18029  |
+| Instruction             |    7697 |     7.1664   |
+| Opinion/Argumentation   |    7648 |     7.12078  |
+| Legal                   |    3113 |     2.8984   |
+| Forum                   |    1186 |     1.10424  |
+| Prose/Lyrical           |     574 |     0.534431 |
+
 
 Post-processing:
-- discarded labels where the category is "Other" (3496 labels, 1.6%) and "Forum" (1589 labels, 0.75%)
-- discarded labels where prediction confidence was below 0.9 (14,280 labels, 7%).
+- discarded labels where the category is "Other" (9860 labels, 9%) and "Forum" (1186 labels, 1%)
+- discarded labels where prediction confidence was below 0.9 (7814 labels, 8%).
 
-Total number of labels discarded due to post-processing: 19,365, percentage: 9%
+Total number of labels discarded due to post-processing: 18,860, percentage: 18%
 
-Final no. of texts with predicted labels: 193,782.
+Final no. of texts with predicted labels: 88,544.
 
 **Final results**
 
@@ -1339,24 +1338,24 @@ Final genre distribution:
 
 |                         |   Count |   Percentage |
 |:------------------------|--------:|-------------:|
-| Promotion               |   73624 |    37.9932   |
-| Information/Explanation |   53808 |    27.7673   |
-| Instruction             |   31239 |    16.1207   |
-| News                    |   26105 |    13.4713   |
-| Legal                   |    6157 |     3.17728  |
-| Opinion/Argumentation   |    2540 |     1.31075  |
-| Prose/Lyrical           |     309 |     0.159458 |
+| Promotion               |   34829 |    39.3352   |
+| Information/Explanation |   21120 |    23.8525   |
+| News                    |   16993 |    19.1916   |
+| Instruction             |    6786 |     7.66399  |
+| Opinion/Argumentation   |    5702 |     6.43974  |
+| Legal                   |    2718 |     3.06966  |
+| Prose/Lyrical           |     396 |     0.447235 |
 
 
 **Distribution of domains in genres**
 
-- Opinion/Argumentation: domains with more than 10%: 1; most frequent domain: bujinkan.koryu.mk (12%)
-- News: domains with more than 10%: 1; most frequent domain: meta.mk (12%)
-- Legal: domains with more than 10%: 1; most frequent domain: ustavensud.mk (12%)
-- Information/Explanation:  domains with more than 10%: 1; most frequent domain: stat.gov.mk (13%)
-- Promotion:  domains with more than 10%: 1; most frequent domain: loging.mk (10%)
-- Instruction: domains with more than 10%: 0; most frequent domain: samsung.com (7%)
-- Prose/Lyrical: domains with more than 10%: 2; most frequent domain: biblegateway (68%), mpc.org.mk (11%)
+- Opinion/Argumentation: domains with more than 10%: 1; most frequent domain: goldenpages.bg (41% !!)
+- News: domains with more than 10%: 0; most frequent domain: archive.eufunds.bg (5%)
+- Legal: domains with more than 10%: 0; most frequent domain: mi.government.bg (3%)
+- Information/Explanation:  domains with more than 10%: 1; most frequent domain: mirela.bg (10%)
+- Promotion:  domains with more than 10%: 1; most frequent domain: rooms.bg (10%)
+- Instruction: domains with more than 10%: 0; most frequent domain: angelcosmetics.bg (4%)
+- Prose/Lyrical: domains with more than 10%: 2; most frequent domain: wordplanet.org (22%), jw.org (20%) (together 42% of all Prose/Lyrical!)
 
 
 **Distribution of English varieties in genres (doc level)**
@@ -1365,18 +1364,19 @@ Distribution in entire corpus (document level):
 
 |     |   en_var_doc |
 |:----|-------------:|
-| UNK |    0.45   |
-| A   |    0.31  |
-| B   |    0.19  |
-| MIX |    0.05 |
+| UNK |    0.43  |
+| A   |    0.33   |
+| B   |    0.18  |
+| MIX |    0.06 |
 
-- News: 0.29 A, 0.20 B - 2 points less A, 1 point more B --> similar distribution
-- Opinion/Argumentation: 0.36 A, 0.25 B - 5 points more A, 6 points more B --> more A, more B
-- Promotion: 0.35 A, 0.15 B - 4 points more A, 4 points less B --> similar distribution
-- Instruction: 0.32 A, 0.16 B - 1 point more A, 3 points less B --> similar distribution
-- Information/Explanation: 0.32 A, 0.17 B - 1 point more A, 2 points less B --> similar distribution
-- Legal: 0.23 A, 0.25 B - 8 points less A, 6 points more B --> more B, less A
-- Prose/Lyrical: 0.39 A, 0.22 B - 8 points more A, 3 points more B --> more A
+
+- News: 0.28 A, 0.23 B -> 5 points less A, 5 points more B --> more B, less A
+- Opinion/Argumentation: 0.26 A, 0.13 B -> 7 points less A, 5 points less B --> less A, less B
+- Promotion: 0.43 A, 0.16 B; 10 points more A, 2 points less B --> more A
+- Instruction: 0.37 A, 0.17 B: 4 points more A, 1 point less B -> similar distribution
+- Information/Explanation: 0.36 A, 0.21 B; 3 points more A, 3 points more B -> similar distribution
+- Legal: 0.25 A, 0.30 B; 8 points less A, 12 points more B -> more B, less A
+- Prose/Lyrical: 0.31 A, 0.30 B; 2 points less A, 12 points more B --> more B
 
 **Length of texts per genre**
 
@@ -1384,25 +1384,25 @@ Length in entire corpus:
 
 |       |   en_length |
 |:------|------------:|
-| mean  |     323.598 |
-| std   |     540.894 |
+| mean  |     301.515 |
+| std   |     552.041 |
 | min   |      79     |
-| 25%   |     125     |
-| 50%   |     194     |
-| 75%   |     330     |
-| max   |   16139     |
+| 25%   |     107     |
+| 50%   |     170     |
+| 75%   |     318     |
+| max   |   68422     |
 
 Length in terms of median:
-- News: 201
-- Opinion/Argumentation: 399
-- Promotion: 155
-- Instruction: 223
-- Information/Explanation: 172
-- Legal: 269
-- Prose/Lyrical: 432
+- News: 196
+- Opinion/Argumentation: 126
+- Promotion: 166
+- Instruction: 306
+- Information/Explanation: 188
+- Legal: 404
+- Prose/Lyrical: 311
 
-Similar length to the general length (10 words difference): News
-Slightly shorter (10-100 words difference): Promotion, Information/Explanation
+Similar length to the general length (10 words difference): Promotion
+Slightly shorter (10-100 words difference): Opinion/Argumentation 
 Much shorter (more than 100 words difference):
-Slightly longer (10-100 words difference): Instruction, Legal
-Much longer (more than 100 words difference): Opinion/Argumentation, Prose/Lyrical
+Slightly longer (10-100 words difference): News, Information/Explanation
+Much longer (more than 100 words difference): Instruction, Legal, Prose/Lyrical
