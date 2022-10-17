@@ -10,15 +10,47 @@ This consisted of the following steps:
 2. Pre-processing: discarded all documents, shorter than the median length; discarded non-textual documents based on a no. of punctuations per no. of words heuristic
 3. Applying the X-GENRE classifier to the data (see [manual analysis of the results](#genre-prediction))
 4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with confidence lower than 0.9
-5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en), [MaCoCu-mt-en](#macocu-mt-en), [MaCoCu-mk-en](#macocu-mk-en) also in regards to varieties of English language
+5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en), [MaCoCu-mt-en](#macocu-mt-en), [MaCoCu-mk-en](#macocu-mk-en), [MaCoCu-tr-en](#macocu-tr-en), [MaCoCu-bg-en](#macocu-bg-en) also in regards to varieties of English language.
 
 Sizes of datasets:
 
 | Dataset      | Original no. of texts | Pre-processed dataset (texts) | Texts with genre labels |
 |--------------|-----------------------|-------------------------------|-------------------------|
 | MaCoCu-sl-en | 285,892               | 101,807                       | 91,459                  |
-| MaCoCu-mt-en    | 47,206                | 23,999                        | 21,376                  |
+| MaCoCu-mt-en | 47,206                | 23,999                        | 21,376                  |
 | MaCoCu-is-en | 40,340                | 13,174                        | 11,639                  |
+| MaCoCu-mk-en | 54,957                | 22,055                        | 20,108                  |
+| MaCoCu-tr-en | 796,473               | 213,147                       | 193,782                 |
+| MaCoCu-bg-en | 287,456               | 107,404                       | 88,544 (18% discarded!) |
+
+- Turkish: much more texts were discarded (only ¼ remaining) - 45% of all sentences (42% of all texts) came from different domains; 48% of remaining English sentences were duplicated
+- Bulgarian: in other datasets, we lost around 10% of genre labels with post-processing, in MaCoCu-bg, there were much more texts “Other” → labels discarded from 18% of all texts
+
+Comparison of the datasets:
+
+| Dataset                                               | MaCoCu-sl-en     | MaCoCu-is-en   | MaCoCu-mt-en             | MaCoCu-mk-en     | MaCoCu-tr-en     | MaCoCu-bg-en         |
+|-------------------------------------------------------|------------------|----------------|--------------------------|------------------|------------------|----------------------|
+| English   variants (doc level)                        | B: 42%, A: 17%   | B: 39%, A: 18% | B: 63%, A: 9%            | B: 19 %, A: 31%  | B: 12%, A: 34%   | B: 18%, A: 33%       |
+| English   variants (domain level)                     | B: 57%, A: 14%   | B: 59%, A: 13% | B: 88%, A: 11%           | B: 20%, A: 49%   | 100% UNK (??)    | B: 30%, A: 40%       |
+| Translation   direction (en-orig)                     | 12%              | 23%            | 59%                      | 41%              | 33%              | 46%                  |
+| English   text length (words; median)                 | 190              | 201            | 300                      | 194              | 184              | 170                  |
+| Average   bi-cleaner score (median)                   | 0.91             | 0.88           | 0.93                     | 0.93             | 0.88             | 0.91                 |
+| Number of   domains which cover more than 1% of texts | 5                | 16             | 13                       | 26               | 7                | 7                    |
+| Sum of %   covered by these domains                   | 10%              | 35%            | 77%                      | 38%              | 15%              | 25%                  |
+| Most   frequent domain (frequency)                    | oblacila.si (4%) | norden (7%)    | europarl.europa.eu (23%) | stat.gov.mk (6%) | booking.com (7%) | goldenpages.bg (12%) |
+
+Distribution of genres:
+
+![](figures/Confusion-matrix-predicted-sample.png)
+
+## Interesting findings
+
+- MaCoCu-tr-en: Errors in identification of English variant on domain level: 100% UNK (?)
+- Very worrying distribution of domains in MaCoCu-mt-en: 13 most frequent domains cover 77% of all texts; many genres are mostly represented by texts from one or a very small number of domains (Opinion/Argumentation, News, Legal, Prose/Lyrical)
+- quite a lot of Poetry/Lyrical consists of Bible, Islam texts (noticed in all corpora)
+- MaCoCu-sl-en: 48% of all Legal texts come from 2 sites: eur-lex.europa.eu (32%), europarl.europa.eu: 16%
+- MaCoCu-bg-en: 41% of Opinion/Argumentation come from one domain - goldenpages.bg
+
 
 ## Steps
 
