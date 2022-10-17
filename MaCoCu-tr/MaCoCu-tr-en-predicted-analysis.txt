@@ -1,4 +1,4 @@
-Analysis of results for file: MaCoCu-tr/Macocu-tr-en-predicted.csv
+Analysis of results for file: Macocu-tr-en-predicted-post-processed.csv
 
 Distribution of genres in the most frequent domains:
 
@@ -151,73 +151,6 @@ Prose/Lyrical
 | goygoycu.net        |   0.0582524 |
 | raillife.com.tr     |   0.0550162 |
 | sarkisozleri.bbs.tr |   0.0485437 |
-
-Distribution of English varieties in genres:
-
-
-
-News
-
-|     |   en_var_doc |
-|:----|-------------:|
-| UNK |   0.558399   |
-| A   |   0.288067   |
-| B   |   0.150124   |
-| MIX |   0.00340931 |
-
-Opinion/Argumentation
-
-|     |   en_var_doc |
-|:----|-------------:|
-| UNK |    0.516535  |
-| A   |    0.381102  |
-| B   |    0.0885827 |
-| MIX |    0.0137795 |
-
-Promotion
-
-|     |   en_var_doc |
-|:----|-------------:|
-| UNK |   0.388583   |
-| A   |   0.377282   |
-| B   |   0.224533   |
-| MIX |   0.00960285 |
-
-Instruction
-
-|     |   en_var_doc |
-|:----|-------------:|
-| UNK |   0.691187   |
-| A   |   0.248728   |
-| B   |   0.0565639  |
-| MIX |   0.00352124 |
-
-Information/Explanation
-
-|     |   en_var_doc |
-|:----|-------------:|
-| UNK |   0.652635   |
-| A   |   0.300755   |
-| B   |   0.0418339  |
-| MIX |   0.00477624 |
-
-Legal
-
-|     |   en_var_doc |
-|:----|-------------:|
-| A   |    0.481891  |
-| UNK |    0.420984  |
-| B   |    0.0862433 |
-| MIX |    0.0108819 |
-
-Prose/Lyrical
-
-|     |   en_var_doc |
-|:----|-------------:|
-| UNK |    0.459547  |
-| A   |    0.430421  |
-| MIX |    0.0776699 |
-| B   |    0.0323625 |
 
 Length distribution of the entire corpus:
 

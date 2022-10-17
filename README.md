@@ -41,7 +41,12 @@ Comparison of the datasets:
 
 Distribution of genres:
 
-![](figures/Confusion-matrix-predicted-sample.png)
+![](figures/Genre-distribution-comparison.png)
+
+- There is much more News in Macedonian parallel corpus (MaCoCu-mk-en) than in others.
+- There is much more Legal in Maltese corpus (MaCoCu-mt-en) than in others.
+- Slovene (MaCoCu-sl-en), Bulgarian (MaCoCu-bg-en) and Turkish (MaCoCu-tr-en) corpora have much more Promotion than others.
+- There is very little Opinion/Argumentation in Turkish (MaCoCu-tr-en) corpus.
 
 ## Interesting findings
 
