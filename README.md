@@ -21,41 +21,42 @@ Sizes of datasets:
 | MaCoCu-is-en | 40,340                | 13,174                        | 11,639                  |
 | MaCoCu-mk-en | 54,957                | 22,055                        | 20,108                  |
 | MaCoCu-tr-en | 796,473               | 213,147                       | 193,782                 |
-| MaCoCu-bg-en | 287,456               | 107,404                       | 88,544 (18% discarded!) |
+| MaCoCu-bg-en | 287,456               | 107,404                       | 88,544                  |
+| MaCoCu-hr-en | 324,666               | 101,752                       | 91,619                  |
 
 - Turkish: much more texts were discarded (only ¼ remaining) - 45% of all sentences (42% of all texts) came from different domains; 48% of remaining English sentences were duplicated
 - Bulgarian: in other datasets, we lost around 10% of genre labels with post-processing, in MaCoCu-bg, there were much more texts “Other” → labels discarded from 18% of all texts
 
 Comparison of the datasets:
 
-| Dataset                                               | MaCoCu-sl-en     | MaCoCu-is-en   | MaCoCu-mt-en             | MaCoCu-mk-en     | MaCoCu-tr-en     | MaCoCu-bg-en         |
-|-------------------------------------------------------|------------------|----------------|--------------------------|------------------|------------------|----------------------|
-| English   variants (doc level)                        | B: 42%, A: 17%   | B: 39%, A: 18% | B: 63%, A: 9%            | B: 19 %, A: 31%  | B: 12%, A: 34%   | B: 18%, A: 33%       |
-| English   variants (domain level)                     | B: 57%, A: 14%   | B: 59%, A: 13% | B: 88%, A: 11%           | B: 20%, A: 49%   | 100% UNK (??)    | B: 30%, A: 40%       |
-| Translation   direction (en-orig)                     | 12%              | 23%            | 59%                      | 41%              | 33%              | 46%                  |
-| English   text length (words; median)                 | 190              | 201            | 300                      | 194              | 184              | 170                  |
-| Average   bi-cleaner score (median)                   | 0.91             | 0.88           | 0.93                     | 0.93             | 0.88             | 0.91                 |
-| Number of   domains which cover more than 1% of texts | 5                | 16             | 13                       | 26               | 7                | 7                    |
-| Sum of %   covered by these domains                   | 10%              | 35%            | 77%                      | 38%              | 15%              | 25%                  |
-| Most   frequent domain (frequency)                    | oblacila.si (4%) | norden (7%)    | europarl.europa.eu (23%) | stat.gov.mk (6%) | booking.com (7%) | goldenpages.bg (12%) |
+| Dataset                                               | MaCoCu-sl-en      | MaCoCu-is-en   | MaCoCu-mt-en             | MaCoCu-mk-en     | MaCoCu-tr-en     | MaCoCu-bg-en         | MaCoCu-hr-en           |
+|-------------------------------------------------------|-------------------|----------------|--------------------------|------------------|------------------|----------------------|------------------------|
+| English   variants (doc level)                        | B: 42%, A: 17%    | B: 39%, A: 18% | B: 63%, A: 9%            | B: 19 %, A: 31%  | B: 12%, A: 34%   | B: 18%, A: 33%       | B: 34%, A: 26%         |
+| English   variants (domain level)                     | B: 57%, A: 14%    | B: 59%, A: 13% | B: 88%, A: 11%           | B: 20%, A: 49%   | 100% UNK         | B: 30%, A: 40%       | B: 40%, A: 28%         |
+| Translation   direction (en-orig)                     | 12%               | 23%            | 59%                      | 41%              | 33%              | 46%                  | 10%                    |
+| English   text length (words; median)                 | 190               | 201            | 300                      | 194              | 184              | 170                  | 172                    |
+| Average   bi-cleaner score (median)                   | 0.91              | 0.88           | 0.93                     | 0.93             | 0.88             | 0.91                 | 0.92                   |
+| Number of   domains which cover more than 1% of texts | 5                 | 16             | 13                       | 26               | 7                | 7                    | 9                      |
+| Sum of %   covered by these domains                   | 10%               | 35%            | 77%                      | 38%              | 15%              | 25%                  | 17%                    |
+| Most   frequent domain (frequency)                    | oblacila.si (4%)  | norden (7%)    | europarl.europa.eu (23%) | stat.gov.mk (6%) | booking.com (7%) | goldenpages.bg (12%) | support.apple.com (2%) |
+| Genre   much more present than in others              | Promotion   (32%) |                | Legal (28%), News (35%)  | News (46%)       | Promotion (38%)  | Promotion (39%)      | Promotion (29%)        |
 
 Distribution of genres:
 
-![](figures/Genre-distribution-comparison.png)
+![](figures/Distribution-of-genres.png)
 
 - There is much more News in Macedonian parallel corpus (MaCoCu-mk-en) than in others.
 - There is much more Legal in Maltese corpus (MaCoCu-mt-en) than in others.
-- Slovene (MaCoCu-sl-en), Bulgarian (MaCoCu-bg-en) and Turkish (MaCoCu-tr-en) corpora have much more Promotion than others.
+- Slovene (MaCoCu-sl-en), Croatian (MaCoCu-hr-en), Bulgarian (MaCoCu-bg-en) and Turkish (MaCoCu-tr-en) corpora have much more Promotion than others.
 - There is very little Opinion/Argumentation in Turkish (MaCoCu-tr-en) corpus.
 
 ## Interesting findings
 
-- MaCoCu-tr-en: Errors in identification of English variant on domain level: 100% UNK (?)
+- MaCoCu-tr-en: Errors in identification of English variant on domain level: 100% UNK - to be corrected in the next release
 - Very worrying distribution of domains in MaCoCu-mt-en: 13 most frequent domains cover 77% of all texts; many genres are mostly represented by texts from one or a very small number of domains (Opinion/Argumentation, News, Legal, Prose/Lyrical)
 - quite a lot of Poetry/Lyrical consists of Bible, Islam texts (noticed in all corpora)
 - MaCoCu-sl-en: 48% of all Legal texts come from 2 sites: eur-lex.europa.eu (32%), europarl.europa.eu: 16%
 - MaCoCu-bg-en: 41% of Opinion/Argumentation come from one domain - goldenpages.bg
-
 
 ## Steps
 
