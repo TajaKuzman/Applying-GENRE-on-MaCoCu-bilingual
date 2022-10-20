@@ -16,13 +16,16 @@
 #corpus_path = "MaCoCu-tr/Macocu-tr-en-doc-format-filtered.csv"
 
 # MaCoCu-bg
-corpus_path = "MaCoCu-bg/Macocu-bg-en-doc-format-filtered.csv"
+#corpus_path = "MaCoCu-bg/Macocu-bg-en-doc-format-filtered.csv"
+
+# MaCoCu-hr
+corpus_path = "MaCoCu-hr/Macocu-hr-en-doc-format-filtered.csv"
 
 # Define the path to sample prediction:
-sample_path = "MaCoCu-bg/sample-prediction-test.csv"
+sample_path = "MaCoCu-hr/sample-prediction-test.csv"
 
 # Define the path to the file with predictions:
-predictions_path = "MaCoCu-bg/Macocu-bg-en-predicted.csv"
+predictions_path = "MaCoCu-hr/Macocu-hr-en-predicted.csv"
 
 # --------------------------------------------------------------------
 

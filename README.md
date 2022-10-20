@@ -1443,3 +1443,180 @@ Slightly shorter (10-100 words difference): Opinion/Argumentation
 Much shorter (more than 100 words difference):
 Slightly longer (10-100 words difference): News, Information/Explanation
 Much longer (more than 100 words difference): Instruction, Legal, Prose/Lyrical
+
+## MaCoCu-hr-en
+
+Initial no. of sentences: 3,097,282; no. of texts: 324,666
+
+
+Pre-processing:
+- discarded instances where English and Croatian come from different domains (973,709 sentences - 30% of all sentences, 85,608 texts - 26% of all texts)
+- discarded duplicated English sentences (with the same par id - 382,621 sentences - 18% of all sentences, 4,368 texts - 2% of all texts)
+- discarded duplicated documents (1,742 texts, 1%) --> no. of remaining texts: 232,948
+
+Initial length of texts:
+
+|       |   en_length |
+|:------|------------:|
+| count |  232948     |
+| mean  |     171.623 |
+| std   |     796.894 |
+| min   |       1     |
+| 25%   |      26     |
+| 50%   |      65     |
+| 75%   |     153     |
+| max   |   77040     |
+
+- I discarded the texts with length less than 79 which is similar to the other MaCoCu datasets (129,899 texts - 56% discarded). --> remaining no. of texts: 103,049
+- non-textual texts filtered out based on a heuristic (1297 texts, 1%) -> final no. of texts: 101,752
+
+
+### Statistics for MaCoCu-hr-en after pre-processing
+
+English variant (document level)
+
+|     |   en_var_doc |
+|:----|-------------:|
+| B   |    0.337369  |
+| UNK |    0.329989  |
+| A   |    0.263769  |
+| MIX |    0.0688733 |
+
+
+English variant (domain level)
+
+|     |   en_var_dom |
+|:----|-------------:|
+| B   |   0.397378   |
+| MIX |   0.317212   |
+| A   |   0.278363   |
+| UNK |   0.00704654 |
+
+Translation direction
+
+|         |   translation_direction |
+|:--------|------------------------:|
+| hr-orig |                 0.90354 |
+| en-orig |                 0.09646 |
+
+Average bicleaner score
+
+|       |   average_score |
+|:------|----------------:|
+| count |  101752         |
+| mean  |       0.900225  |
+| std   |       0.0638587 |
+| min   |       0.501     |
+| 25%   |       0.869327  |
+| 50%   |       0.915375  |
+| 75%   |       0.947167  |
+| max   |       0.9916    |
+
+Length of English text
+
+|       |   en_length |
+|:------|------------:|
+| count |  101752     |
+| mean  |     347.735 |
+| std   |    1182.31  |
+| min   |      79     |
+| 25%   |     114     |
+| 50%   |     172     |
+| 75%   |     298     |
+| max   |   77040     |
+
+Statistics on English domains: there are 6,258 different domains.
+
+There are 9 domains which cover more than 1% of data, the domain with the largest frequency is support.apple.com which covers 2% of the data.
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| support.apple.com (92% Instruction)      |    2522 |     2.47858  |
+| mzos.hr (99% Information/Explanation)                |    2414 |     2.37243  |
+| europarl.europa.eu (43% News, 34% Legal)     |    2352 |     2.3115   |
+| eur-lex.europa.eu (86% Legal)      |    1977 |     1.94296  |
+| adriatic.hr (79% Promotion)            |    1950 |     1.91642  |
+| prijatelji-zivotinja.hr (71% News) |    1945 |     1.91151  |
+| hrcak.srce.hr (98% Information/Explanation)          |    1512 |     1.48597  |
+| bib.irb.hr (99% Information/Explanation)             |    1434 |     1.40931  |
+| zagrebdox.net (37% Information/Explanation, 28% News)          |    1150 |     1.1302   |
+
+### Results of genre prediction on MaCoCu-hr-en
+
+Distribution of labels before post-processing
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| Information/Explanation |   30758 |    30.2284   |
+| Promotion               |   28524 |    28.0329   |
+| News                    |   17003 |    16.7102   |
+| Instruction             |   12152 |    11.9428   |
+| Legal                   |    5290 |     5.19892  |
+| Opinion/Argumentation   |    4520 |     4.44217  |
+| Other                   |    1956 |     1.92232  |
+| Forum                   |     883 |     0.867796 |
+| Prose/Lyrical           |     666 |     0.654533 |
+
+
+Post-processing:
+- discarded labels where the category is "Other" (1956 labels, 2%) and "Forum" (883 labels, 1%)
+- discarded labels where prediction confidence was below 0.9 (7294 labels, 7%).
+
+Total number of labels discarded due to post-processing: 10,133 percentage: 10%
+
+Final no. of texts with predicted labels: 91,619.
+
+**Final results**
+
+Final genre distribution:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| Information/Explanation |   28958 |     31.607   |
+| Promotion               |   26790 |     29.2407  |
+| News                    |   15653 |     17.0849  |
+| Instruction             |   11102 |     12.1176  |
+| Legal                   |    4851 |      5.29475 |
+| Opinion/Argumentation   |    3696 |      4.0341  |
+| Prose/Lyrical           |     569 |      0.62105 |
+
+
+**Distribution of domains in genres**
+
+- Opinion/Argumentation: domains with more than 10%: 0; most frequent domain: vanipedia.org (6% !!)
+- News: domains with more than 10%: 0; most frequent domain: prijatelji-zivotinja.hr (8%)
+- Legal: domains with more than 10%: 2; most frequent domain: eur-lex.europa.eu (33%), europarl.europa.eu (14%)
+- Information/Explanation:  domains with more than 10%: 0; most frequent domain: mzos.hr (8%)
+- Promotion:  domains with more than 10%: 0; most frequent domain: adriatic.hr (4%)
+- Instruction: domains with more than 10%: 1; most frequent domain: support.apple.com (21%)
+- Prose/Lyrical: domains with more than 10%: 4; most frequent domain: pouke.org (30%), biblegateway.com (15%), vanipedia.org (14%),  storyboardthat.com (13%) (together 72% of all Prose/Lyrical!)
+
+**Length of texts per genre**
+
+Length in entire corpus:
+
+|       |   en_length |
+|:------|------------:|
+| count |  101752     |
+| mean  |     347.735 |
+| std   |    1182.31  |
+| min   |      79     |
+| 25%   |     114     |
+| 50%   |     172     |
+| 75%   |     298     |
+| max   |   77040     |
+
+Length in terms of median:
+- News: 193
+- Opinion/Argumentation: 205
+- Promotion: 149
+- Instruction: 199
+- Information/Explanation: 158
+- Legal: 400
+- Prose/Lyrical: 196
+
+Similar length to the general length (10 words difference): 
+Slightly shorter (10-100 words difference): Promotion, Information/Explanation
+Much shorter (more than 100 words difference):
+Slightly longer (10-100 words difference): News, Opinion/Argumentation, Instruction, Prose/Lyrical
+Much longer (more than 100 words difference): Legal

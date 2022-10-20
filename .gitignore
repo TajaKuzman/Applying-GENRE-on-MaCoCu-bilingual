@@ -36,3 +36,8 @@ MaCoCu-tr/Macocu-tr-en-predicted.csv-post-processed.csv
 MaCoCu-bg/Macocu-bg-en-predicted-post-processed.csv
 MaCoCu-bg/Macocu-bg-en-predicted.csv
 MaCoCu-tr/Macocu-tr-en-predicted-post-processed.csv
+MaCoCu-hr/Macocu-hr-en-doc-format-filtered.csv
+MaCoCu-hr/Macocu-hr-en-doc-format.csv
+MaCoCu-hr/MaCoCu-hr-en-predicted-analysis.txt
+MaCoCu-hr/Macocu-hr-en-predicted-post-processed.csv
+MaCoCu-hr/Macocu-hr-en-predicted.csv
