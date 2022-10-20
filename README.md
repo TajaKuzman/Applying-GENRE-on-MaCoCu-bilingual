@@ -10,7 +10,7 @@ This consisted of the following steps:
 2. Pre-processing: discarded all documents, shorter than the median length; discarded non-textual documents based on a no. of punctuations per no. of words heuristic
 3. Applying the X-GENRE classifier to the data (see [manual analysis of the results](#genre-prediction))
 4. Post-processing: discarded unreliable predictions - labels "Other" and "Forum", and labels predicted with confidence lower than 0.9
-5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en), [MaCoCu-mt-en](#macocu-mt-en), [MaCoCu-mk-en](#macocu-mk-en), [MaCoCu-tr-en](#macocu-tr-en), [MaCoCu-bg-en](#macocu-bg-en) also in regards to varieties of English language.
+5. Analysis of results for [MaCoCu-sl-en](#macocu-sl-en), [MaCoCu-is-en](#macocu-is-en), [MaCoCu-mt-en](#macocu-mt-en), [MaCoCu-mk-en](#macocu-mk-en), [MaCoCu-tr-en](#macocu-tr-en), [MaCoCu-bg-en](#macocu-bg-en), [MaCoCu-hr-en](#macocu-hr-en) also in regards to varieties of English language.
 
 Sizes of datasets:
 
